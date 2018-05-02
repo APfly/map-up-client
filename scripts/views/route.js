@@ -1,6 +1,4 @@
 page('/'
-  , (ctx, next) => app.Meetups.initSearch()
-  // , (ctx, next) => app.adminView.verify(ctx, next)
+  , (ctx, next) => app.Meetups.initSearch(() => app.meetupView.initIndexPage(ctx, next))
 );
-
 page();

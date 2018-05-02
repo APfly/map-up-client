@@ -15,28 +15,29 @@ var app = app || {};
 
   meetupView.initIndexPage = function (ctx, next) {
     resetView();
-    $('.book-view').show();
-    $('#book-list').empty();
-    module.Book.all.forEach(book => $('#book-list').append(book.toHtml()));
-    next()
+    $('.container').show();
+    $('#table ul').empty();
+    console.log(ctx);
+    console.log(next);
+    app.Meetups.all.forEach(item => $('#table ul').append(item.toHtml()));
   }
 
-  meetupView.initDetailPage = function (ctx, next) {
-    resetView();
-    $('.detail-view').show();
-    $('.book-detail').empty();
-    let template = Handlebars.compile($('#book-detail-template').text());
-    $('.book-detail').append(template(ctx.book));
+  // meetupView.initDetailPage = function (ctx, next) {
+  //   resetView();
+  //   $('.detail-view').show();
+  //   $('.book-detail').empty();
+  //   let template = Handlebars.compile($('#book-detail-template').text());
+  //   $('.book-detail').append(template(ctx.book));
 
-    $('#update-btn').on('click', function () {
-      page(`/books/${$(this).data('id')}/update`);
-    });
+  //   $('#update-btn').on('click', function () {
+  //     page(`/books/${$(this).data('id')}/update`);
+  //   });
 
-    $('#delete-btn').on('click', function () {
-      module.Book.destroy($(this).data('id'));
-    });
-    next()
-  }
+  //   $('#delete-btn').on('click', function () {
+  //     module.Book.destroy($(this).data('id'));
+  //   });
+  //   next()
+  // }
 
   module.meetupView = meetupView;
 })(app)

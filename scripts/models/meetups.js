@@ -45,6 +45,53 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
   .then(callback)
   .then(console.log(Meetups.all))      
   .catch(errorCallback);
+
+
+  var locationForm = document.getElementById('location-form');
+locationForm.addEventListener('submit', geoCode);
+
+function geoCode(e){
+  var location = document.getElementById('location-input').value;
+  e.preventDefault();
+  axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+    params:{
+      address:location,
+      key: 'AIzaSyAVGGzvV04jCERkeyLvyAfLhyw_blWCzZU'
+    }
+  })
+  .then(function(response){
+    
+      //lng lat info
+    var lat = response.data.results[0].geometry.location.lat;
+    var lng = response.data.results[0].geometry.location.lng;
+    
+    var geometryOutput = `
+    <ul>
+    <li><strong>Latitude</strong>: ${lat}</li>
+    <li><strong>Longitude</strong>: ${lng}</li>    
+    </ul>
+    `;
+
+    document.getElementById('geometry').innerHTML = geometryOutput;    
+    initMap(lat, lng)
+    
+  })
+  initMap(47.6179985, -122.3516122);
+}
+
+
+  function initMap(lat, lng){
+  var uluru = {lat: lat, lng: lng};
+  var location = uluru;
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 13,
+    center: uluru
+  });
+  var marker = new google.maps.Marker({
+    position: uluru,
+    map: map
+  });
+  }
   
 
   function errorCallback(err) {

@@ -18,15 +18,15 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
   // }
 
   function Meetups(rawMeetupsObj) {
-    this.name = rawMeetupsObj.group.name;
-    // this.date = local_date,
-    // this.time = local_time,
-    // this.address = address_1,
-    // this.venue.lon = lon,
-    // this.venue.lat = lat
+    this.name = rawMeetupsObj.name;
+    this.date = rawMeetupsObj.local_date;
+    this.time = rawMeetupsObj.local_time;
+    this.link = rawMeetupsObj.link;    
+    this.lon = rawMeetupsObj.group.lon;
+    this.lat = rawMeetupsObj.group.lat;
 
     // Object.keys(rawMeetupsObj).forEach(key => this[key] = rawMeetupsObj[key]);
-    console.log(this.name);
+    console.log(this, rawMeetupsObj);
   }
 
   Meetups.prototype.toHtml = function () {

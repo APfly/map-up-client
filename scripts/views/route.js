@@ -1,5 +1,5 @@
 page('/'
-  , (ctx, next) => app.Meetups.fetchAll()
+  , (ctx, next) => app.Meetups.initSearch()
   // , (ctx, next) => app.adminView.verify(ctx, next)
 );
 

@@ -11,17 +11,22 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
 
 
 (function (module) {
-  $.get(`${ENV.apiUrl}/meetup/upcoming_events`)
-    .then(data => console.log('data back from server: ', JSON.parse(data.text)))
-    .catch(error => console.log(error.message));
-  function errorCallback(err) {
-    console.error(err);
-    module.errorView.initErrorPage(err);
-  }
+
+  // function Meetups(rawMeetupsObj) {
+  //   console.log('test', rawMeetupsObj);
+  //   Object.keys(rawMeetupsObj).forEach(key => this[key] = rawMeetupsObj[key]);
+  // }
 
   function Meetups(rawMeetupsObj) {
-    console.log('test');
-    Object.keys(rawMeetupsObj).forEach(key => this[key] = rawMeetupsObj[key]);
+    this.name = rawMeetupsObj.group.name;
+    // this.date = local_date,
+    // this.time = local_time,
+    // this.address = address_1,
+    // this.venue.lon = lon,
+    // this.venue.lat = lat
+
+    // Object.keys(rawMeetupsObj).forEach(key => this[key] = rawMeetupsObj[key]);
+    console.log(this.name);
   }
 
   Meetups.prototype.toHtml = function () {
@@ -30,14 +35,22 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
     return template(this);
   };
   console.log('testing 1-2-3');
+  
   Meetups.all = [];
   Meetups.loadAll = rows => Meetups.all = JSON.parse(rows.text).events.sort((a, b) => b.title - a.title).map(meetup => new Meetups(meetup));
+  
   Meetups.fetchAll = callback =>
-    $.get(`${ENV.apiUrl}/meetup/upcoming_events`)
-      // .then(console.log('test'))
-      .then(Meetups.loadAll)
-      .then(callback)
-      .catch(errorCallback);
+  $.get(`${ENV.apiUrl}/meetup/upcoming_events`)
+  .then(Meetups.loadAll)
+  .then(callback)
+  .then(console.log(Meetups.all))      
+  .catch(errorCallback);
+  
+
+  function errorCallback(err) {
+    console.error(err);
+    module.errorView.initErrorPage(err);
+  }
 
   // Meetups.fetchOne = (ctx, callback) =>
   //   $.get(`${ENV.apiUrl}/api/v1/meetups/${ctx.params.meetup_id}`)

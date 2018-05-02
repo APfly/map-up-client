@@ -9,6 +9,7 @@ ENV.developmentApiUrl = 'http://localhost:3000';
 ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
 
 
+
 (function (module) {
   $.get(`${ENV.apiUrl}/meetup/upcoming_events`)
     .then(data => console.log('data back from server: ', JSON.parse(data.text)))

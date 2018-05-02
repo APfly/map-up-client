@@ -12,11 +12,12 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
 
 (function (module) {
 
+ 
   // function Meetups(rawMeetupsObj) {
   //   console.log('test', rawMeetupsObj);
   //   Object.keys(rawMeetupsObj).forEach(key => this[key] = rawMeetupsObj[key]);
   // }
-
+  
   function Meetups(rawMeetupsObj) {
     this.name = rawMeetupsObj.name;
     this.date = rawMeetupsObj.local_date;
@@ -24,16 +25,13 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
     this.link = rawMeetupsObj.link;    
     this.lon = rawMeetupsObj.group.lon;
     this.lat = rawMeetupsObj.group.lat;
-
-    // Object.keys(rawMeetupsObj).forEach(key => this[key] = rawMeetupsObj[key]);
-    console.log(this);
   }
 
   Meetups.prototype.toHtml = function () {
     let template = Handlebars.compile($('#meetups-list-template').text());
-    console.log('inside meetup proto');
     return template(this);
   };
+
   console.log('testing 1-2-3');
   
   Meetups.all = [];
@@ -45,7 +43,6 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
   .then(callback)
   .then(console.log(Meetups.all))      
   .catch(errorCallback);
-
 
 var locationForm = document.getElementById('location-form');
 locationForm.addEventListener('submit', geoCode);
@@ -93,7 +90,6 @@ function geoCode(e){
   });
   }
   
-
   function errorCallback(err) {
     console.error(err);
     module.errorView.initErrorPage(err);

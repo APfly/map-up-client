@@ -9,11 +9,24 @@
     <link rel="stylesheet" href="public/styles/base.css">
     <link rel="stylesheet" href="public/styles/layout.css">
     <link rel="stylesheet" href="public/styles/modules.css">
+    
+    <script type="text/x-handlebars-template" id="meetups-list-template">
+      <li class="meetups-items">
+        <div class="meetups-container">
+          <div class="meetups-overlay">
+            <h2>{{name}}</h2>
+            <h2>{{date}}</h2>
+            <a href="{{link}}">{{name}}</a>
+            <p>{{time}}</p>        
+          </div>
+        </div>
+      </li>
+    </script>
 
   </head>
   <body>
     <h1>APfly!</h1>
-
+    
     <h3>Enter Your Location</h3>
     <form id="location-form">
       <input type="text" id="location-input" placeholder="location">
@@ -21,7 +34,12 @@
     </form>
 
   <div id="map"></div>
+  
+  <section id="table" class="container">
+    <ul id="table-list">
 
+    </ul>
+  </section>
 <div class="container">
   <div id="formatted-address"></div>
   <div id="address-components"></div>

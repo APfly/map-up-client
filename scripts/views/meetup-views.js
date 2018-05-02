@@ -12,12 +12,12 @@ var app = app || {};
   }
 
   const meetupView = {};
-
+ 
   meetupView.initIndexPage = function (ctx, next) {
-    resetView();
-    $('.book-view').show();
-    $('#book-list').empty();
-    module.Book.all.forEach(book => $('#book-list').append(book.toHtml()));
+    // resetView();
+    // $('.book-view').show();
+    // $('#book-list').empty();
+    app.Meetups.all.forEach(item => $('#table ul').append(item.toHtml()));
     next()
   }
 

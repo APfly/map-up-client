@@ -19,11 +19,20 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
 
   function Meetups(rawMeetupsObj) {
     this.name = rawMeetupsObj.name;
+    this.groupName = rawMeetupsObj.group.name
     this.date = rawMeetupsObj.local_date;
     this.time = rawMeetupsObj.local_time;
     this.link = rawMeetupsObj.link;    
-    this.lon = rawMeetupsObj.group.lon;
-    this.lat = rawMeetupsObj.group.lat;
+    this.lon = rawMeetupsObj.venue.lon;
+    this.lat = rawMeetupsObj.venue.lat;
+    this.venue = rawMeetupsObj.venue.name;
+    this.venue = rawMeetupsObj.venue.address_1;
+    this.venue = rawMeetupsObj.venue.address_2;
+    this.venue = rawMeetupsObj.venue.city;
+    this.venue = rawMeetupsObj.venue.state;
+    this.venue = rawMeetupsObj.venue.zip;
+
+
 
     // Object.keys(rawMeetupsObj).forEach(key => this[key] = rawMeetupsObj[key]);
     console.log(this);

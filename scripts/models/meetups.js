@@ -26,7 +26,7 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
     this.lat = rawMeetupsObj.group.lat;
 
     // Object.keys(rawMeetupsObj).forEach(key => this[key] = rawMeetupsObj[key]);
-    console.log(this, rawMeetupsObj);
+    console.log(this);
   }
 
   Meetups.prototype.toHtml = function () {
@@ -47,9 +47,9 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
   .catch(errorCallback);
 
 
-  var locationForm = document.getElementById('location-form');
+var locationForm = document.getElementById('location-form');
 locationForm.addEventListener('submit', geoCode);
-
+//the geocode function hits the maps api
 function geoCode(e){
   var location = document.getElementById('location-input').value;
   e.preventDefault();
@@ -79,7 +79,7 @@ function geoCode(e){
   initMap(47.6179985, -122.3516122);
 }
 
-
+//the initmap function puts marker on map at lng, lat pos
   function initMap(lat, lng){
   var uluru = {lat: lat, lng: lng};
   var location = uluru;

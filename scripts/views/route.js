@@ -16,8 +16,6 @@ function disAbout() {
 
 
 
-page();
-
 
 // $('.lr3').on('click', () => {
 //     $('#ABOUT').fadeOut(200);
@@ -42,3 +40,7 @@ page();
 //   })
 
 // })
+
+
+page('/mymeetups', ctx => app.meetupView.initMyMeetupsPage())
+page();

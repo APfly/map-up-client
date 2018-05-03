@@ -4,7 +4,7 @@ var app = app || {};
 
 const ENV = {};
 ENV.isProduction = window.location.protocol === 'https:';
-// ENV.productionApiUrl = 'https://apfly-map-up.herokuapp.com';
+ENV.productionApiUrl = 'https://apfly-map-up.herokuapp.com';
 ENV.developmentApiUrl = 'http://localhost:3000';
 ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
 
@@ -32,6 +32,7 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
   };
 
   Meetups.all = [];
+  Meetups.saved = [];
 
   Meetups.loadAll = rows => {
     console.log("loadAll()");
@@ -42,83 +43,9 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
   Meetups.newSearch = (ctx) =>
     $.get(`${ENV.apiUrl}/meetup/new_search/${ctx.lat} ${ctx.lng}`)
       .then(Meetups.loadAll)
-      .then(() => initMap(ctx.lat, ctx.lng))
+      .then(() => app.mapView.initMap(ctx.lat, ctx.lng))
       .then(app.meetupView.initIndexPage)
       .catch(errorCallback);
-
-  let locationForm = document.getElementById('location-form');
-  locationForm.addEventListener('submit', geoCode);
-
-  function geoCode(e) {
-    let location = document.getElementById('location-input').value;
-    e.preventDefault();
-    axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-      params: {
-        address: location,
-        key: 'AIzaSyAVGGzvV04jCERkeyLvyAfLhyw_blWCzZU'
-      }
-    })
-      .then(function (response) {
-        let lat = response.data.results[0].geometry.location.lat;
-        let lng = response.data.results[0].geometry.location.lng;
-        let searchPoint = { lat: lat, lng: lng };
-        let geometryOutput = `
-          <ul>
-          <li><strong>Latitude</strong>: ${lat}</li>
-          <li><strong>Longitude</strong>: ${lng}</li>    
-          </ul>
-        `;
-        document.getElementById('geometry').innerHTML = geometryOutput;
-        console.log("newSearch()");
-        Meetups.newSearch(searchPoint);
-      })
-
-  }
-  function initMap(lat, lng) {
-    console.log("initMap()");
-    let markers = [];
-    let infoWindow = new google.maps.InfoWindow();
-
-    let searchPoint = { lat: lat, lng: lng };
-
-
-    let map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 13,
-      center: searchPoint,
-    });
-
-    // var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
-    // var beachMarker = new google.maps.Marker({
-    //   position: searchPoint,
-    //   map: map,
-    //   icon: image
-    // });
-
-    for (let i = 0; i < Meetups.all.length; i++) {
-
-      let blueIcon = `http://www.clker.com/cliparts/o/t/F/J/B/k/google-maps-th.png`;
-      let marker = new google.maps.Marker({
-        position: new google.maps.LatLng(Meetups.all[i].lat, Meetups.all[i].lon),
-        map: map,
-        icon: blueIcon
-      })
-
-      markers.push(marker);
-
-      markers.push(new google.maps.Marker({ position: searchPoint, map: map }));
-
-      let info = Meetups.all[i];
-
-      (function (marker, info) {
-        google.maps.event.addListener(marker, 'click', function (e) {
-          infoWindow.setContent(info.name.toString())
-          infoWindow.open(map, marker);
-        });
-      })(marker, info);
-
-    }
-
-  }
 
   function errorCallback(err) {
     console.error(err);
@@ -128,6 +55,7 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
   module.Meetups = Meetups;
 
 })(app);
+
 
 
 

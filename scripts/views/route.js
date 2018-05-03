@@ -1,16 +1,16 @@
-page('/', disHomepage);
+page('/map-up-client', disHomepage);
 page('/about', disAbout);
 
-function disHomepage () {
-    console.log('home')
-    $('#mainPage').fadeIn(250);
-    $('#aboutPage').hide(250);
+function disHomepage() {
+  console.log('home')
+  $('#mainPage').fadeIn(250);
+  $('#aboutPage').hide(250);
 }
 
 function disAbout() {
-    console.log('about')
-    $('#mainPage').fadeOut(250);
-    $('#aboutPage').fadeIn(250);
+  console.log('about')
+  $('#mainPage').fadeOut(250);
+  $('#aboutPage').fadeIn(250);
 }
 
 

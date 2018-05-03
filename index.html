@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="public/styles/layout.css">
   <link rel="stylesheet" href="public/styles/modules.css">
 
-      <script type="text/x-handlebars-template" id="meetups-list-template">
+  <script type="text/x-handlebars-template" id="meetups-list-template">
         <li class="meetups-items">
           <div class="meetups-container">
             <div class="meetups-overlay">
@@ -34,35 +34,40 @@
 <body>
   <nav>
     <ul>
-      <li><a href="/">Home</a></li>      
-      <li><a href="/mymeetups">My meetups</a></li>
+      <li>
+        <a href="/map-up-client">Home</a>
+      </li>
+      <li>
+        <a href="/mymeetups">My meetups</a>
+      </li>
     </ul>
   </nav>
 
   <h1>APfly!</h1>
 
-<!-- //////////////////////////////////////// -->
-<section id="mainPage">
-<!-- //////////////////////////////////////// -->
+  <!-- //////////////////////////////////////// -->
+  <section id="mainPage">
+    <!-- //////////////////////////////////////// -->
 
-<section id="headSection">
+    <section id="headSection">
 
 
-  <div id="menuBox">
-        <img id ="pin" src="img/turnpin.gif" alt="menu button">
-  </div>
+      <div id="menuBox">
+        <img id="pin" src="img/turnpin.gif" alt="menu button">
+      </div>
 
-  <div id="logoHead">
-    <img id ="logo" src="img/headLogo.gif" alt="Map Up!">
-  </div>
+      <div id="logoHead">
+        <img id="logo" src="img/headLogo.gif" alt="Map Up!">
+      </div>
 
-</section><!-- END HEAD SECITON -->
+    </section>
+    <!-- END HEAD SECITON -->
 
-<section id="searchBar">
+    <section id="searchBar">
 
-    <div id="searchDiv">
+      <div id="searchDiv">
 
-        <p style='display:inline;' >AROUND WHERE?</p>
+        <p style='display:inline;'>AROUND WHERE?</p>
 
         <form style='display:inline;' id="location-form">
           <input type="text" id="location-input" placeholder="location">
@@ -70,48 +75,56 @@
         </form>
       </div>
 
-</section><!-- END SEARCH BAR -->
-
-
-
-  
-
+    </section>
+    <!-- END SEARCH BAR -->
 
 
 
 
-  <div id="map"></div>
 
 
 
-  <div class="container">
-    <div id="formatted-address"></div>
-    <div id="address-components"></div>
-    <div id="geometry"></div>
-  </div>
-  <section id="table" class="container">
-    <ul id="table-list"></ul>
+
+
+    <div id="map"></div>
+
+
+
+    <div class="container">
+      <div id="formatted-address"></div>
+      <div id="address-components"></div>
+      <div id="geometry"></div>
+    </div>
+    <section id="table" class="container">
+      <ul id="table-list"></ul>
+    </section>
+
+
+
+    <section id="footer">
+      <p>
+        <a href="/about">ABOUT</a>
+      </p>
+    </section>
+
   </section>
+  <!-- end mainPage -->
+  <!-- //////////////////////////////////////// -->
 
 
 
-<section id="footer"><p><a href="/about">ABOUT</a></p></section>
+  <!-- //////////////////////////////////////// -->
+  <section id="aboutPage">
 
-</section><!-- end mainPage -->
-<!-- //////////////////////////////////////// -->
-
-
-
-<!-- //////////////////////////////////////// -->
-<section id="aboutPage">
-
-  <!-- <p>about</p> -->
-  <p><a href="/">home</a></p>
+    <!-- <p>about</p> -->
+    <p>
+      <a href="/">home</a>
+    </p>
 
 
 
-</section>
-<!-- //////////////////////////////////////// -->
+  </section>
+  <!-- //////////////////////////////////////// -->
 
 
 
@@ -121,7 +134,7 @@
 
 
   <!-- External CDN Resources -->
- 
+
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMIynQZAAdXhDKd2DzWJ89h-sqVrQktxo&"></script>

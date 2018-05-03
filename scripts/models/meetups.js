@@ -26,8 +26,9 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
   Meetups.all = [];
 
   Meetups.loadAll = rows => {
-    Meetups.all = JSON.parse(rows.text).events.sort((a, b) => b.title - a.title).map(meetup => new Meetups(meetup));
-    console.log(JSON.parse(rows.text).events);
+    console.log("loadAll()");
+    Meetups.all = JSON.parse(rows.text).events.sort((a, b) => b.title - a.title).map(meetup => new Meetups(meetup)).filter(meetup => meetup.lat);
+    return Meetups.all;
   }
 
 
@@ -38,18 +39,18 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
   //     // .then(console.log(Meetups.all))
   //     .catch(errorCallback);
 
-  Meetups.newSearch = (ctx, callback) =>
+  Meetups.newSearch = (ctx) =>
     $.get(`${ENV.apiUrl}/meetup/new_search/${ctx.lat} ${ctx.lng}`)
       .then(Meetups.loadAll)
-      .then(callback)
-      // .then(console.log(Meetups.all))
+      .then(() => initMap(ctx.lat, ctx.lng))
+      .then(app.meetupView.initIndexPage)
       .catch(errorCallback);
 
-  var locationForm = document.getElementById('location-form');
+  let locationForm = document.getElementById('location-form');
   locationForm.addEventListener('submit', geoCode);
 
   function geoCode(e) {
-    var location = document.getElementById('location-input').value;
+    let location = document.getElementById('location-input').value;
     e.preventDefault();
     axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
       params: {
@@ -58,53 +59,55 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
       }
     })
       .then(function (response) {
-        var lat = response.data.results[0].geometry.location.lat;
-        var lng = response.data.results[0].geometry.location.lng;
-        var geometryOutput = `
-    <ul>
-    <li><strong>Latitude</strong>: ${lat}</li>
-    <li><strong>Longitude</strong>: ${lng}</li>    
-    </ul>
-    `;
+        let lat = response.data.results[0].geometry.location.lat;
+        let lng = response.data.results[0].geometry.location.lng;
+        let searchPoint = { lat: lat, lng: lng };
+        let geometryOutput = `
+          <ul>
+          <li><strong>Latitude</strong>: ${lat}</li>
+          <li><strong>Longitude</strong>: ${lng}</li>    
+          </ul>
+        `;
         document.getElementById('geometry').innerHTML = geometryOutput;
-        initMap(lat, lng);
+        console.log("newSearch()");
+        Meetups.newSearch(searchPoint);
       })
-  
+
   }
 
-
-
-  
   function initMap(lat, lng) {
-    
-    var markers = [];
 
-    var searchPoint = { lat: lat, lng: lng };
-   
-    Meetups.newSearch(searchPoint, app.meetupView.initIndexPage)
+    console.log("initMap()");
 
-    var map = new google.maps.Map(document.getElementById('map'), {
+
+    let markers = [];
+
+    let searchPoint = { lat: lat, lng: lng };
+
+    // Meetups.newSearch(searchPoint, app.meetupView.initIndexPage)
+
+    let map = new google.maps.Map(document.getElementById('map'), {
       zoom: 13,
       center: searchPoint
     });
 
-    
 
-    for ( let i = 0 ; i < Meetups.all.length ; i++ ) { 
+
+    for (let i = 0; i < Meetups.all.length; i++) {
       console.log(Meetups.all[i])
       markers.push(new google.maps.Marker({
         position: new google.maps.LatLng(Meetups.all[i].lat, Meetups.all[i].lon),
-        map : map
-        
+        map: map
+
       })
-    
-    );
 
-    markers.push(new google.maps.Marker({ position: searchPoint, map: map }));
+      );
 
-    
-  }
-  
+      markers.push(new google.maps.Marker({ position: searchPoint, map: map }));
+
+
+    }
+
   }
 
   function errorCallback(err) {
@@ -114,7 +117,7 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
 
   module.Meetups = Meetups;
 
-  })(app);
+})(app);
 
   //////////////////////////////////////////////////////////////////////////////
 
@@ -128,7 +131,7 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
 // function initMap() {
 
 //     var seattle = {lat: 47.606, lng: -122.330};
-    
+
 //     var map = new google.maps.Map(document.getElementById('map'), {
 //         zoom: 12,
 //         center: seattle,
@@ -153,6 +156,6 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
 
   //////////////////////////////////////////////////////////////////////////////
 
-  
+
 
 

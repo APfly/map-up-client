@@ -14,8 +14,16 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
     this.date = rawMeetupsObj.local_date;
     this.time = rawMeetupsObj.local_time;
     this.link = rawMeetupsObj.link;
-    this.lon = rawMeetupsObj.group.lon;
-    this.lat = rawMeetupsObj.group.lat;
+    if (rawMeetupsObj.venue) {
+      this.lon = rawMeetupsObj.venue.lon;
+      this.lat = rawMeetupsObj.venue.lat;
+      this.venueName = rawMeetupsObj.venue.name;
+      this.address1 = rawMeetupsObj.venue.address_1;
+      this.address2 = rawMeetupsObj.venue.address_2;
+      this.city = rawMeetupsObj.venue.city;
+      this.state = rawMeetupsObj.venue.state;
+      this.zip = rawMeetupsObj.venue.zip;
+    }
   }
 
   Meetups.prototype.toHtml = function () {
@@ -66,31 +74,47 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
       })
 
   }
-
   function initMap(lat, lng) {
     console.log("initMap()");
     let markers = [];
+    let infoWindow = new google.maps.InfoWindow();
 
     let searchPoint = { lat: lat, lng: lng };
 
 
     let map = new google.maps.Map(document.getElementById('map'), {
       zoom: 13,
-      center: searchPoint
+      center: searchPoint,
     });
 
-    for (let i = 0; i < Meetups.all.length; i++) {
-      console.log(Meetups.all[i])
-      markers.push(new google.maps.Marker({
-        position: new google.maps.LatLng(Meetups.all[i].lat, Meetups.all[i].lon),
-        map: map
+    // var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+    // var beachMarker = new google.maps.Marker({
+    //   position: searchPoint,
+    //   map: map,
+    //   icon: image
+    // });
 
+    for (let i = 0; i < Meetups.all.length; i++) {
+
+      let blueIcon = `http://www.clker.com/cliparts/o/t/F/J/B/k/google-maps-th.png`;
+      let marker = new google.maps.Marker({
+        position: new google.maps.LatLng(Meetups.all[i].lat, Meetups.all[i].lon),
+        map: map,
+        icon: blueIcon
       })
 
-      );
+      markers.push(marker);
 
       markers.push(new google.maps.Marker({ position: searchPoint, map: map }));
 
+      let info = Meetups.all[i];
+
+      (function (marker, info) {
+        google.maps.event.addListener(marker, 'click', function (e) {
+          infoWindow.setContent(info.name.toString())
+          infoWindow.open(map, marker);
+        });
+      })(marker, info);
 
     }
 

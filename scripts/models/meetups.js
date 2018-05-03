@@ -122,7 +122,7 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
 
   function errorCallback(err) {
     console.error(err);
-    module.errorView.initErrorPage(err);
+    // module.errorView.initErrorPage(err);
   }
 
   module.Meetups = Meetups;

@@ -11,11 +11,20 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
 (function (module) {
   function Meetups(rawMeetupsObj) {
     this.name = rawMeetupsObj.name;
+    this.groupName = rawMeetupsObj.group.name
     this.date = rawMeetupsObj.local_date;
     this.time = rawMeetupsObj.local_time;
-    this.link = rawMeetupsObj.link;
-    this.lon = rawMeetupsObj.group.lon;
-    this.lat = rawMeetupsObj.group.lat;
+    this.link = rawMeetupsObj.link;   
+  if (rawMeetupsObj.venue) {
+    this.lon = rawMeetupsObj.venue.lon;
+    this.lat = rawMeetupsObj.venue.lat;
+   this.venueName = rawMeetupsObj.venue.name;
+    this.address1 = rawMeetupsObj.venue.address_1;
+   this.address2 = rawMeetupsObj.venue.address_2;
+    this.city = rawMeetupsObj.venue.city;
+    this.state = rawMeetupsObj.venue.state;
+    this.zip = rawMeetupsObj.venue.zip;
+  }
   }
 
   Meetups.prototype.toHtml = function () {
@@ -24,7 +33,8 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
   };
 
   Meetups.all = [];
-  Meetups.loadAll = rows => Meetups.all = JSON.parse(rows.text).events.sort((a, b) => b.title - a.title).map(meetup => new Meetups(meetup));
+  Meetups.loadAll = rows => Meetups.all = JSON.parse(rows.text).events.sort((a, b) => b.title - a.title).map(meetup => new Meetups(meetup)).filter(meetup => meetup.lat);
+
 
   Meetups.initSearch = callback =>
     $.get(`${ENV.apiUrl}/meetup/init_search`)
@@ -35,9 +45,9 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
 
   Meetups.newSearch = (ctx, callback) =>
     $.get(`${ENV.apiUrl}/meetup/new_search/${ctx.lat} ${ctx.lng}`)
+    .then($.post(`${ENV.apiUrl}/meetup/new_search`))
       .then(Meetups.loadAll)
       .then(callback)
-      .then(console.log(Meetups.all))
       .catch(errorCallback);
 
   var locationForm = document.getElementById('location-form');
@@ -64,21 +74,21 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
         document.getElementById('geometry').innerHTML = geometryOutput;
         initMap(lat, lng)
       })
-    initMap(lat, lng);
   }
 
   function initMap(lat, lng) {
-    var uluru = { lat: lat, lng: lng };
-    var location = uluru;
-    var map = new google.maps.Map(document.getElementById('map'), {
+    let uluru = { lat: lat, lng: lng };
+    let location = uluru;
+    let map = new google.maps.Map(document.getElementById('map'), {
       zoom: 13,
       center: uluru
     });
-    var marker = new google.maps.Marker({
+    let marker = new google.maps.Marker({
       position: uluru,
       map: map
     });
     Meetups.newSearch(uluru, app.meetupView.initIndexPage)
+
   }
 
   function errorCallback(err) {
@@ -87,5 +97,5 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
   }
 
   module.Meetups = Meetups;
-})(app);
+})(app);;
 

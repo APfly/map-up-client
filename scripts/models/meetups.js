@@ -96,7 +96,19 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
 
     for (let i = 0; i < Meetups.all.length; i++) {
 
-      let blueIcon = `http://www.clker.com/cliparts/o/t/F/J/B/k/google-maps-th.png`;
+      // var blueIcon = {
+      //   url: 'http://www.clker.com/cliparts/o/t/F/J/B/k/google-maps-th.png',
+      //   size: new google.maps.Size(40, 64),
+      //   origin: new google.maps.Point(15, 16)
+      // }
+
+      var blueIcon = new google.maps.MarkerImage(
+        "http://www.clker.com/cliparts/o/t/F/J/B/k/google-maps-th.png",
+        null, /* size is determined at runtime */
+        null, /* origin is 0,0 */
+        null, /* anchor is bottom center of the scaled image */
+        new google.maps.Size(31.5, 51)
+      );
       let marker = new google.maps.Marker({
         position: new google.maps.LatLng(Meetups.all[i].lat, Meetups.all[i].lon),
         map: map,
@@ -111,7 +123,14 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
 
       (function (marker, info) {
         google.maps.event.addListener(marker, 'click', function (e) {
-          infoWindow.setContent(info.name.toString())
+          infoWindow.setContent(
+            `<div>${info.name}
+              <ul>
+                <li> ${info.date} </li>
+                <li> ${info.time} </li>
+                <li> ${info.venueName} </li>
+                <li> ${info.address1} ${info.city}, ${info.zip} </li>
+            </div>`)
           infoWindow.open(map, marker);
         });
       })(marker, info);

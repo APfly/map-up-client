@@ -1,68 +1,93 @@
 
+'use strict';
+// testing 1-2-3
+var app = app || {};
 
-// var locationForm = document.getElementById('location-form');
-// locationForm.addEventListener('submit', geoCode);
+(function (module) {
+  const mapView = {};
 
-// function geoCode(e){
-//   var location = document.getElementById('location-input').value;
-//   e.preventDefault();
-//   axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-//     params:{
-//       address:location,
-//       key: 'AIzaSyAVGGzvV04jCERkeyLvyAfLhyw_blWCzZU'
-//     }
-//   })
-//   .then(function(response){
-//     console.log(response);
-    
-//     // address info
-//     // var formattedAddress = response.data.results[0].formatted_address;
-//     // var formattedAddressOutput = `<ul><li>${formattedAddress}</li></ul>`;
-//     // var addressComponents = response.data.results[0].address_components;
-//     // var addressComponentsOutput = '<ul>';
-//     //   for(var i = 0; i < addressComponents.length; i++){
-//     //     addressComponentsOutput +=`
-//     //     '<li><strong>${addressComponents[i].types[0]}</strong>: ${addressComponents[i].long_name}</li>`
-//     //   }
-//     //   addressComponentsOutput += '</ul>';
-    
-//       //lng lat info
-//     var lat = response.data.results[0].geometry.location.lat;
-//     var lng = response.data.results[0].geometry.location.lng;
-//     console.log(lat, lng)
-    
-//     var geometryOutput = `
-//     <ul>
-//     <li><strong>Latitude</strong>: ${lat}</li>
-//     <li><strong>Longitude</strong>: ${lng}</li>    
-//     </ul>
-//     `;
+  let locationForm = document.getElementById('location-form');
+  locationForm.addEventListener('submit', geoCode);
 
-//     // document.getElementById('formatted-address').innerHTML = formattedAddressOutput;
-//     // document.getElementById('address-components').innerHTML = addressComponentsOutput;  
-//     document.getElementById('geometry').innerHTML = geometryOutput;    
-//     initMap(lat, lng)
-    
-//   })
-//   initMap(47.6179985, -122.3516122);
-//   // meetup.fetchMeetups - check db if its old data then hit server to hit api and get new data
-//   // server side function with conditional value
-//   // save data in meetups.All[]
-//   // for loop to loop over array with 
-//   // get lng lat for all meetups 
-//   // add markers of meets to map
-// }
+  function geoCode(e) {
+    let location = document.getElementById('location-input').value;
+    e.preventDefault();
+    axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+      params: {
+        address: location,
+        key: 'AIzaSyAVGGzvV04jCERkeyLvyAfLhyw_blWCzZU'
+      }
+    })
+      .then(function (response) {
+        let lat = response.data.results[0].geometry.location.lat;
+        let lng = response.data.results[0].geometry.location.lng;
+        let searchPoint = { lat: lat, lng: lng };
+        let geometryOutput = `
+          <ul>
+          <li><strong>Latitude</strong>: ${lat}</li>
+          <li><strong>Longitude</strong>: ${lng}</li>    
+          </ul>
+        `;
+        document.getElementById('geometry').innerHTML = geometryOutput;
+        console.log("newSearch()");
+        app.Meetups.newSearch(searchPoint);
+      })
 
-// function initMap(lat, lng){
-//   // console.log('initmap')
-// var uluru = {lat: lat, lng: lng};
-// var location = uluru;
-// var map = new google.maps.Map(document.getElementById('map'), {
-//   zoom: 13,
-//   center: uluru
-// });
-// var marker = new google.maps.Marker({
-//   position: uluru,
-//   map: map
-// });
-// }
+  }
+  mapView.initMap = (lat, lng) => {
+    console.log("initMap()");
+    let markers = [];
+    let infoWindow = new google.maps.InfoWindow();
+
+    let searchPoint = { lat: lat, lng: lng };
+
+
+    let map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 13,
+      center: searchPoint,
+    });
+
+    for (let i = 0; i < app.Meetups.all.length; i++) {
+
+      var blueIcon = new google.maps.MarkerImage(
+        "http://www.clker.com/cliparts/o/t/F/J/B/k/google-maps-th.png",
+        null, /* size is determined at runtime */
+        null, /* origin is 0,0 */
+        null, /* anchor is bottom center of the scaled image */
+        new google.maps.Size(31.5, 51)
+      );
+
+      let marker = new google.maps.Marker({
+        position: new google.maps.LatLng(app.Meetups.all[i].lat, app.Meetups.all[i].lon),
+        map: map,
+        icon: blueIcon
+      })
+
+      markers.push(marker);
+
+      markers.push(new google.maps.Marker({ position: searchPoint, map: map }));
+
+      let info = app.Meetups.all[i];
+
+      (function (marker, info) {
+        google.maps.event.addListener(marker, 'click', function (e) {
+          infoWindow.setContent(
+            `<div>${info.name}
+              <ul>
+                <li> ${info.date} </li>
+                <li> ${info.time} </li>
+                <li> ${info.venueName} </li>
+                <li> ${info.address1} ${info.city}, ${info.zip} </li>
+            </div>`)
+          infoWindow.open(map, marker);
+        });
+      })(marker, info);
+
+    }
+
+  }
+  module.mapView = mapView;
+
+})(app);
+
+

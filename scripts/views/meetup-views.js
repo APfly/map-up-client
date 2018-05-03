@@ -18,6 +18,7 @@ var app = app || {};
     resetView();
     $('.container').fadeIn(150);
     $('#table ul').empty();
+    $('#my-meetups ul').empty();
 
     app.Meetups.all.forEach(item => $('#table ul').append(item.toHtml(), `<button class="save-meetup">save to my meetups</button>`));
 
@@ -29,10 +30,10 @@ var app = app || {};
   }
 
   meetupView.initMyMeetupsPage = function (ctx, next) {
-    $('.container').hide();    
-    $('#map').hide();    
-    console.log('mymeetups!');
-    $('#my-meetups ul').show();
+    $('.container').hide();
+    $('#map').hide();
+    $('#my-meetups ul').empty();
+    // $('#my-meetups ul').show();
     app.Meetups.saved.forEach(item => $('#my-meetups ul').append(item.toHtml()));
   }
 
@@ -42,7 +43,7 @@ var app = app || {};
     app.Meetups.saved.push(app.Meetups.all[$(this).prev().index() / 2])
 
     $(this).hide();
-    }
+  }
 
 
   module.meetupView = meetupView;

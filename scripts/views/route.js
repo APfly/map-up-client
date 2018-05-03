@@ -1,4 +1,5 @@
-page('/map-up-client', disHomepage);
+page('/'
+  , disHomepage);
 page('/about', disAbout);
 
 function disHomepage() {

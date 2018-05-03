@@ -4,7 +4,7 @@ var app = app || {};
 
 const ENV = {};
 ENV.isProduction = window.location.protocol === 'https:';
-// ENV.productionApiUrl = 'https://apfly-map-up.herokuapp.com';
+ENV.productionApiUrl = 'https://apfly-map-up.herokuapp.com';
 ENV.developmentApiUrl = 'http://localhost:3000';
 ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
 
@@ -33,7 +33,7 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
 
   Meetups.all = [];
   Meetups.saved = [];
-  
+
   Meetups.loadAll = rows => {
     console.log("loadAll()");
     Meetups.all = JSON.parse(rows.text).events.sort((a, b) => b.title - a.title).map(meetup => new Meetups(meetup)).filter(meetup => meetup.lat);

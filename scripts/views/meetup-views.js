@@ -14,11 +14,11 @@ var app = app || {};
   const meetupView = {};
 
   meetupView.initIndexPage = function (ctx, next) {
+
     resetView();
     $('.container').show();
     $('#table ul').empty();
-    console.log(ctx);
-    console.log(next);
+
     app.Meetups.all.forEach(item => $('#table ul').append(item.toHtml()));
   }
 

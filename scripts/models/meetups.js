@@ -24,20 +24,25 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
   };
 
   Meetups.all = [];
-  Meetups.loadAll = rows => Meetups.all = JSON.parse(rows.text).events.sort((a, b) => b.title - a.title).map(meetup => new Meetups(meetup));
 
-  Meetups.initSearch = callback =>
-    $.get(`${ENV.apiUrl}/meetup/init_search`)
-      .then(Meetups.loadAll)
-      .then(callback)
-      .then(console.log(Meetups.all))
-      .catch(errorCallback);
+  Meetups.loadAll = rows => {
+    Meetups.all = JSON.parse(rows.text).events.sort((a, b) => b.title - a.title).map(meetup => new Meetups(meetup));
+    console.log(JSON.parse(rows.text).events);
+  }
+
+
+  // Meetups.initSearch = callback =>
+  //   $.get(`${ENV.apiUrl}/meetup/init_search`)
+  //     .then(Meetups.loadAll)
+  //     .then(callback)
+  //     // .then(console.log(Meetups.all))
+  //     .catch(errorCallback);
 
   Meetups.newSearch = (ctx, callback) =>
     $.get(`${ENV.apiUrl}/meetup/new_search/${ctx.lat} ${ctx.lng}`)
       .then(Meetups.loadAll)
       .then(callback)
-      .then(console.log(Meetups.all))
+      // .then(console.log(Meetups.all))
       .catch(errorCallback);
 
   var locationForm = document.getElementById('location-form');
@@ -62,23 +67,44 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
     </ul>
     `;
         document.getElementById('geometry').innerHTML = geometryOutput;
-        initMap(lat, lng)
+        initMap(lat, lng);
       })
-    initMap(lat, lng);
+  
   }
 
+
+
+  
   function initMap(lat, lng) {
-    var uluru = { lat: lat, lng: lng };
-    var location = uluru;
+    
+    var markers = [];
+
+    var searchPoint = { lat: lat, lng: lng };
+   
+    Meetups.newSearch(searchPoint, app.meetupView.initIndexPage)
+
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 13,
-      center: uluru
+      center: searchPoint
     });
-    var marker = new google.maps.Marker({
-      position: uluru,
-      map: map
-    });
-    Meetups.newSearch(uluru, app.meetupView.initIndexPage)
+
+    
+
+    for ( let i = 0 ; i < Meetups.all.length ; i++ ) { 
+      console.log(Meetups.all[i])
+      markers.push(new google.maps.Marker({
+        position: new google.maps.LatLng(Meetups.all[i].lat, Meetups.all[i].lon),
+        map : map
+        
+      })
+    
+    );
+
+    markers.push(new google.maps.Marker({ position: searchPoint, map: map }));
+
+    
+  }
+  
   }
 
   function errorCallback(err) {
@@ -87,5 +113,46 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
   }
 
   module.Meetups = Meetups;
-})(app);
+
+  })(app);
+
+  //////////////////////////////////////////////////////////////////////////////
+
+//   var locations = [
+//     {lat: 47.606100, lng: -122.330000},
+//     {lat: 47.506200, lng: -122.230000},
+//     {lat: 47.406300, lng: -122.130000},
+//     {lat: 47.306400, lng: -122.030000}
+// ]
+
+// function initMap() {
+
+//     var seattle = {lat: 47.606, lng: -122.330};
+    
+//     var map = new google.maps.Map(document.getElementById('map'), {
+//         zoom: 12,
+//         center: seattle,
+//         mapTypeId: google.maps.MapTypeId.ROADMAP
+//     });
+
+
+
+
+//     var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+//     var pinDrop;
+
+//     for ( let i= 0 ; i < app.Meetups.all.length ; i++ ) { 
+//         pinDrop = new google.maps.Marker({
+//         position: new google.maps.LatLng(locations[i].lat, locations[i].lon),
+//         map : map,
+//         label: labels [i % labels.length],
+//         });
+//     }
+//     }//close initMap
+
+  //////////////////////////////////////////////////////////////////////////////
+
+  
+
 

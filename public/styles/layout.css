@@ -1,0 +1,142 @@
+html {
+    overflow: -moz-scrollbars-vertical;
+    overflow-y: scroll;
+   }
+
+*{
+    font-family: 'Lato', sans-serif;
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+     box-sizing: border-box; 
+  }
+
+#headSection{
+    background-color:#007fff;
+    border-bottom: #007fff;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+}
+
+#logoHead{
+    background-color:#007fff;
+}
+
+#menuBox{
+    background-color:#007fff; 
+}
+
+#logo {
+    margin: 1%;
+    height:100%;
+    float:left;
+    margin-left:5%;
+}
+
+#pin {
+    margin: 1%;
+    height:95%;
+    float:right;
+    border-radius: 50%;
+    border: #007fff;
+    border-width: 2px;
+    border-style: solid;
+    
+      
+}
+  
+.rotate{
+    transform: rotate(270deg);
+}
+
+
+
+/* /////// */
+
+#searchBar {
+    height:90px;
+    /* background-color:red; */
+    border-top: #007fff;
+    border-top-width: 1px;
+    border-top-style: solid;
+}
+
+#searchDiv{
+    background-color:#007fff;
+    height:90px;
+    border-top: white;
+    border-top-width: 1px;
+    border-top-style: solid;
+}
+
+#searchDiv > p {
+    font-size:.7em;
+    line-height:.1em;
+    color:white;
+    
+}
+
+input[type=text]{
+    padding-left: 5%;
+    font-size: 1em;
+    margin-top: 0px;
+    width:95%; height:40px;
+    border: 1px solid #7F7979;
+    -webkit-border-radius: 5px;
+    border-radius: 2px;
+
+}
+
+
+
+/* ////////////TABLE */
+
+
+
+
+
+ /* //////////////////////////////////// */
+/* slim:tall mobile */
+@media screen and ( max-width: 700px ){
+    body{
+        background-color:white;
+    }
+
+    #logoHead{
+        float:left;
+        width:69%;
+        height:10vh;
+    }
+    #menuBox{
+        float:right;
+        width:28%;
+        height:10vh;
+    }
+
+    #headSection{
+        height:10vh;
+    }
+
+}
+
+
+ /* //////////////////////////////////// */
+/* squatty:wide main */
+@media screen and ( min-width: 700px ){
+    body{
+        background-color:lightgrey;
+    }
+    #logoHead{
+        float:left;
+        width:70%;
+        height:15vh;
+    }
+    #menuBox{
+        float:right;
+        width:28%;
+        height:15vh;
+    }
+
+    #headSection{
+        height:15vh;
+    }
+}

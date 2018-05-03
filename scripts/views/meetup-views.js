@@ -16,29 +16,11 @@ var app = app || {};
   meetupView.initIndexPage = function (ctx, next) {
 
     resetView();
-    $('.container').show();
+    $('.container').fadeIn(150);
     $('#table ul').empty();
 
     app.Meetups.all.forEach(item => $('#table ul').append(item.toHtml()));
   }
-
-  // meetupView.initDetailPage = function (ctx, next) {
-  //   resetView();
-  //   $('.detail-view').show();
-  //   $('.book-detail').empty();
-  //   let template = Handlebars.compile($('#book-detail-template').text());
-  //   $('.book-detail').append(template(ctx.book));
-
-  //   $('#update-btn').on('click', function () {
-  //     page(`/books/${$(this).data('id')}/update`);
-  //   });
-
-  //   $('#delete-btn').on('click', function () {
-  //     module.Book.destroy($(this).data('id'));
-  //   });
-  //   next()
-  // }
-
   module.meetupView = meetupView;
 })(app)
 

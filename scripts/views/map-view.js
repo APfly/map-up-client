@@ -32,7 +32,6 @@ var app = app || {};
         console.log("newSearch()");
         app.Meetups.newSearch(searchPoint);
       })
-
   }
   mapView.initMap = (lat, lng) => {
     console.log("initMap()");

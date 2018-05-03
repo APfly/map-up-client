@@ -93,15 +93,27 @@ var app = app || {};
         return newTime;
       }
 
+      function zipCode () {
+        if(info.zip === undefined) {
+          info.zip = '';
+        } else {
+          info.zip;
+        }
+        return info.zip;
+      }
+      
       (function (marker, info) {
         google.maps.event.addListener(marker, 'click', function (e) {
           infoWindow.setContent(
-            `<div>${info.name}
-              <ul>
-                <li> ${info.date} </li>
-                <li> ${regTime()} </li>
-                <li> ${info.venueName} </li>
-                <li> ${info.address1} ${info.city}, ${info.zip} </li>
+            `<div id="infobox">
+              <p><a href=${info.link}>${info.name}
+              <a></p>
+              <ul class="infolist">
+                  <li class="list-item"> <strong>Date:</strong> ${info.date} </li>
+                  <li class="list-item"> <strong>Time:</strong> ${regTime()} </li>
+                  <li class="list-item"> <strong>Venue name:</strong> ${info.venueName} </li>
+                  <li class="list-item"> <strong>Address:</strong> ${info.address1} ${info.city} ${zipCode()} </li>
+                </ul>
             </div>`)
           infoWindow.open(map, marker);
         });

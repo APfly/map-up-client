@@ -33,6 +33,7 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
 
   Meetups.all = [];
   Meetups.saved = [];
+  
   Meetups.loadAll = rows => {
     console.log("loadAll()");
     Meetups.all = JSON.parse(rows.text).events.sort((a, b) => b.title - a.title).map(meetup => new Meetups(meetup)).filter(meetup => meetup.lat);

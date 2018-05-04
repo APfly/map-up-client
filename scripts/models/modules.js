@@ -3,7 +3,7 @@
 $(document).ready(() => {
 
     $('#aboutPage').hide();
-    $('#searchBar').hide();
+    // $('#searchBar').hide();
 
     $('#pin').on('click', () => {
         $('#pin').toggleClass('rotate');

@@ -10,6 +10,26 @@ html {
      box-sizing: border-box; 
   }
 
+  a:link{
+    text-decoration: none;
+    color:white;
+  }
+  
+  a:visited{
+    text-decoration: none;
+    color:white;  
+  }
+  
+  a:hover{
+    text-decoration: none;
+    color:#7F7979;
+  }
+  
+  a:active{
+    text-decoration: none;
+    color:#7F7979
+  }
+
 #headSection{
     background-color:#007fff;
     border-bottom: #007fff;
@@ -26,10 +46,10 @@ html {
 }
 
 #logo {
-    margin: 1%;
-    height:100%;
+    height:86%;
     float:left;
     margin-left:5%;
+    margin-top:2%;
 }
 
 #pin {
@@ -39,48 +59,36 @@ html {
     border-radius: 50%;
     border: #007fff;
     border-width: 2px;
-    border-style: solid;
-    
-      
+    border-style: solid;    
 }
   
 .rotate{
-    transform: rotate(270deg);
+    transform: rotate(90deg);
 }
 
-
-
-/* /////// */
-
 #searchBar {
-    /* height:90px; */
-    /* background-color:red; */
     border-top: #007fff;
     border-top-width: 1px;
     border-top-style: solid;
-    display:none;
 }
 
 #searchDiv{
     background-color:#007fff;
-    /* height:90px; */
+    height:50px;
     border-top: white;
-    border-top-width: 1px;
+    border-top-width: 2px;
     border-top-style: solid;
-    text-align:center;
+    padding: 5px 10px 5px 10px; 
 }
 
-#searchDiv > span {
-
+#searchDiv > li {
     font-size:.7em;
     line-height:.1em;
-    color:white;    
+    color:white;  
 }
 
-
-
 input[type=text]{
-    font-size: 1.4em;
+    font-size: 1.2em;
     width:80%; height:40px;
     border: 1px solid #7F7979;
     -webkit-border-radius: 5px;
@@ -90,30 +98,58 @@ input[type=text]{
 }
 
 button[type=submit]{
-  -webkit-border-radius: 60;
-  -moz-border-radius: 60;
-  border-radius: 50px;
-  color: #7F7979;
-  /* background: #ffffff; */
-  /* padding: 5px 10px 5px 10px; */
-  /* text-decoration: none; */
+  color: #FFFFFF;
+  font-weight:bold;
+  background: #000000;
+  text-decoration: none;
 }
 
-
-
-/* ////////////TABLE */
-
-#footer{
+#nav{
     background-color:#007fff;
+    height: 5vh;
+    border-top: white;
+    border-top-width: 1px;
+    border-top-style: solid;
+    height:50px;
+    display:none;
 }
 
+#nav li {
+    display:inline-block;
+}
 
+.navSpacer{
+    color: #FFFFFF;
+}
 
- /* //////////////////////////////////// */
-/* slim:tall mobile */
+#aboutPage{
+    display:none;
+}
+
+#myMeetUps{
+    display:none;
+}
+
+#map{
+    border-top: white;
+    border-top-width: 2px;
+    border-top-style: solid;
+}
+
+#emeryIsBadAtNamingVariables{
+    background-color:#5fafff;
+    padding-top:25px;
+    padding-bottom:25px;
+    padding-right:30px;
+    border-top-color: white;
+    border-top-width: 2px;
+    border-top-style: solid;    
+}
+
+/* mobile */
 @media screen and ( max-width: 700px ){
     body{
-        background-color:white;
+        background-color:whitesmoke;
     }
 
     #logoHead{
@@ -131,27 +167,44 @@ button[type=submit]{
         height:10vh;
     }
 
+    button[type=submit]{
+        padding: 5px 10px 5px 10px; 
+    }
 }
 
-
- /* //////////////////////////////////// */
-/* squatty:wide main */
+/* wide */
 @media screen and ( min-width: 700px ){
     body{
-        background-color:lightgrey;
+        background-color:whitesmoke;
     }
     #logoHead{
-        float:left;
+        float:right;
         width:70%;
-        height:15vh;
+        height:20vh;
     }
+
+    #logoBox{
+        float:left;
+    }
+
     #menuBox{
         float:right;
         width:28%;
-        height:15vh;
+        height:20vh;
     }
 
     #headSection{
-        height:15vh;
+        height:20vh;
     }
+
+    #logo {
+        height:86%;
+        float:left;
+        margin-left:2%;
+        margin-top:1%;
+    }
+    button[type=submit]{
+        padding: 7px 7px 7px 7px; 
+    }
+
 }

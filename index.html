@@ -6,50 +6,103 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Map Up</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
   <link rel="stylesheet" href="public/styles/reset.css">
   <link rel="stylesheet" href="public/styles/base.css">
   <link rel="stylesheet" href="public/styles/layout.css">
   <link rel="stylesheet" href="public/styles/modules.css">
+<<<<<<< HEAD
   <link rel="stylesheet" href="public/styles/marker-info.css">
+=======
+
+>>>>>>> b8cb625465c1a68d2671539372c42339c71bd989
   <script type="text/x-handlebars-template" id="meetups-list-template">
-      <li class="meetups-items">
-        <div class="meetups-container">
-          <div class="meetups-overlay">
-            <h2>{{name}}</h2>
-            <h2>{{date}}</h2>
-            <a href="{{link}}">{{name}}</a>
-            <p>{{time}}</p>        
-          </div>
+    <li class="meetups-items">
+      <div class="meetups-container">
+        <div class="meetups-overlay">
+          <h2>{{name}}</h2>
+          <h2>{{date}}</h2>
+          <a href="{{link}}">{{name}}</a>
+          <p>{{time}}</p>        
         </div>
-      </li>
-    </script>
+      </div>
+    </li>
+  </script>
+
 </head>
 
 <body>
-  <h1>APfly!</h1>
 
-  <h3>Enter Your Location</h3>
-  <form id="location-form">
-    <input type="text" id="location-input" placeholder="location">
-    <button type="submit">Submit</button>
-  </form>
+  <section id="headSection">
 
+    <div id="menuBox">
+      <img id="pin" src="img/turnpin4.gif" alt="menu button">
+      <img id="pinLeft" src="img/turnpin4.gif" alt="menu button">
+    </div>
 
-  <div id="map"></div>
+    
 
+    <div id="logoHead">
+        <a href="/"><img id="logo" src="img/Logo5.gif" alt="Map Up!"></a>
+      
+    </div>
 
-
-  <div class="container">
-    <div id="formatted-address"></div>
-    <div id="address-components"></div>
-    <div id="geometry"></div>
-  </div>
-  <section id="table" class="container">
-    <ul id="table-list"></ul>
   </section>
-  <section id="my-meetups" class="container">
-    <ul></ul>
+
+  <section id="nav">
+
+    <ul>
+      <li><a href="/about">ABOUT</a></li>
+        <li class="navSpacer">&nbsp|&nbsp</li>
+      <li><a href="/mymeetups">SAVED MEETUPS</a></li>
+        <li class="homeNav navSpacer">&nbsp|&nbsp</li>
+      <li class="homeNav"><a href="/">SEARCH</a></li>
+    </ul>
+
   </section>
+
+  <section id="searchBar">
+
+    <div id="searchDiv">
+
+      <form style='display:inline;' id="location-form">
+        <input type="text" id="location-input" placeholder="around where..?">
+        <button type="submit">GO!</button>
+      </form>
+
+    </div>
+
+  </section>
+
+    <div id="map"></div>
+
+    <section id="aboutPage">
+      <P>ABOUT</P>
+    </section>
+  
+    <section id="myMeetUps">
+      <ul></ul>
+      <p>MY MEETUPS</p>
+    </section>
+
+  <section id="emeryIsBadAtNamingVariables">
+
+    <div class="container">
+      <div id="formatted-address"></div>
+      <div id="address-components"></div>
+      <div id="geometry"></div>
+    </div>
+
+    <section id="table" class="container">
+      <ul id="table-list"></ul>
+    </section>
+
+  </section>
+
+ 
+
   <!-- External CDN Resources -->
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -63,6 +116,8 @@
   <script src="scripts/views/meetup-views.js" type="text/javascript"></script>
   <script src="scripts/views/error-views.js" type="text/javascript"></script>
   <script src="scripts/views/route.js" type="text/javascript"></script>
+  <script src="scripts/models/modules.js" type="text/javascript"></script>
+
 </body>
 
 </html>

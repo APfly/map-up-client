@@ -1,6 +1,5 @@
 
 'use strict';
-// testing 1-2-3
 var app = app || {};
 
 (function (module) {
@@ -32,7 +31,6 @@ var app = app || {};
         console.log("newSearch()");
         app.Meetups.newSearch(searchPoint);
       })
-
   }
   mapView.initMap = (lat, lng) => {
     console.log("initMap()");
@@ -67,6 +65,30 @@ var app = app || {};
       markers.push(new google.maps.Marker({ position: searchPoint, map: map }));
 
       let info = app.Meetups.all[i];
+      function regTime() {
+        let stringTime = info.time.toString();
+        let array = stringTime.split(':');
+        // let minute = array[1];
+        let hour = parseInt(array[0]);
+        let hourString = array[0];
+
+        if (hour > 12) {
+          let newHour = hour - 12;
+          array.shift([0]);
+          array.unshift(newHour);
+          'PM'
+          array[1] += 'PM'
+        }
+        if (hour < 12) {
+          let num = hourString.charAt(1);
+          array.shift([0]);
+          array.unshift(num);
+          array[1] += 'AM';
+        }
+
+        let newTime = array.join(':');
+        return newTime;
+      }
 
       function regTime() {
         let stringTime = info.time.toString();

@@ -6,19 +6,13 @@ var app = app || {};
     $('.nav-menu').slideToggle(350);
   })
 
-  function resetView() {
-    $('.container').hide();
-    $('.nav-menu').slideUp(350);
-  }
 
   const meetupView = {};
 
   meetupView.initIndexPage = function (ctx, next) {
 
-    resetView();
-    $('.container').fadeIn(150);
     $('#table ul').empty();
-
+    $('#my-meetups ul').empty();
     app.Meetups.all.forEach(item => $('#table ul').append(item.toHtml(), `<button class="save-meetup">save to my meetups</button>`));
 
     let saveMeetup = document.getElementsByClassName('save-meetup');
@@ -29,18 +23,21 @@ var app = app || {};
   }
 
   meetupView.initMyMeetupsPage = function (ctx, next) {
-    resetView();
-    $('.container').fadeIn(150);
-    $('#my-meetups ul').empty();
-    app.Meetups.saved.forEach(item => $('#my-meetyps ul').append(item.toHtml()));
+    
+    disMyMeetups();
+
+    app.Meetups.saved.forEach(item => $('#my-meetups ul').append(item.toHtml()));
   }
 
   function saveToMyMeetups(event) {
     event.preventDefault();
-    // console.log($(this).prev());
-    console.log('saving the following:', $(this).prev());
-    app.Meetups.saved.push(app.Meetups.all[$(this).prev().index() / 2]);
+    console.log('saving the following:', $(this).prev())
+    app.Meetups.saved.push(app.Meetups.all[$(this).prev().index() / 2])
+
+    $(this).hide();
   }
+
+
   module.meetupView = meetupView;
 })(app)
 

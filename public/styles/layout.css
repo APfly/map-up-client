@@ -1,0 +1,245 @@
+html {
+    overflow: -moz-scrollbars-vertical;
+    overflow-y: scroll;
+   }
+
+*{
+    font-family: 'Lato', sans-serif;
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+     box-sizing: border-box; 
+  }
+
+  a:link{
+    text-decoration: none;
+    color:white;
+  }
+  
+  a:visited{
+    text-decoration: none;
+    color:white;  
+  }
+  
+  a:hover{
+    text-decoration: none;
+    color:#7F7979;
+  }
+  
+  a:active{
+    text-decoration: none;
+    color:#7F7979
+  }
+
+#headSection{
+    background-color:#007fff;
+    border-bottom: #007fff;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+}
+
+#logoHead{
+    background-color:#007fff;
+}
+
+#menuBox{
+    background-color:#007fff; 
+}
+
+#logo {
+    height:86%;
+    float:left;
+    margin-left:5%;
+    margin-top:2%;
+}
+
+#pin {
+    margin: 1%;
+    height:95%;
+    border-radius: 50%;
+    border: #007fff;
+    border-width: 2px;
+    border-style: solid;    
+}
+
+#pinLeft {
+    margin: 1%;
+    height:95%;
+    border-radius: 50%;
+    border: #007fff;
+    border-width: 2px;
+    border-style: solid;    
+}
+  
+.rotate{
+    transform: rotate(90deg);
+}
+
+.rotateL{
+    transform: rotate(270deg);
+}
+
+#searchBar {
+    border-top: #007fff;
+    border-top-width: 1px;
+    border-top-style: solid;
+}
+
+#searchDiv{
+    background-color:#007fff;
+    height:50px;
+    border-top: white;
+    border-top-width: 2px;
+    border-top-style: solid;
+    padding: 5px 10px 5px 10px; 
+}
+
+#searchDiv > li {
+    font-size:.7em;
+    line-height:.1em;
+    color:white;  
+}
+
+input[type=text]{
+    font-size: 1.2em;
+    height:40px;
+    border: 1px solid #7F7979;
+    -webkit-border-radius: 5px;
+    border-radius: 2px;
+    text-align:center;
+
+}
+
+button[type=submit]{
+  color: #FFFFFF;
+  font-weight:bold;
+  background: #000000;
+  text-decoration: none;
+}
+
+#nav{
+    background-color:#007fff;
+    height: 5vh;
+    border-top: white;
+    border-top-width: 1px;
+    border-top-style: solid;
+    height:50px;
+    display:none;
+}
+
+#nav li {
+    display:inline-block;
+}
+
+.navSpacer{
+    color: #FFFFFF;
+}
+
+#aboutPage{
+    display:none;
+}
+
+#myMeetUps{
+    display:none;
+}
+
+#map{
+    border-top: white;
+    border-top-width: 2px;
+    border-top-style: solid;
+}
+
+#emeryIsBadAtNamingVariables{
+    background-color:#5fafff;
+    padding-top:25px;
+    padding-bottom:25px;
+    padding-right:30px;
+    border-top-color: white;
+    border-top-width: 2px;
+    border-top-style: solid;    
+}
+
+/* mobile */
+@media screen and ( max-width: 700px ){
+    body{
+        background-color:whitesmoke;
+    }
+
+    #logoHead{
+        float:left;
+        width:69%;
+        height:10vh;
+    }
+    #menuBox{
+        float:right;
+        width:28%;
+        height:10vh;
+    }
+
+    #headSection{
+        height:10vh;
+    }
+
+    button[type=submit]{
+        padding: 5px 10px 5px 10px; 
+    }
+    input[type=text]{
+        width:80%;
+    }
+
+    #pin {
+        float:right;
+    }
+    #pinLeft {
+        display:none;
+    }
+}
+
+/* wide */
+@media screen and ( min-width: 700px ){
+    body{
+        background-color:whitesmoke;
+    }
+    #logoHead{
+        float:right;
+        width:67%;
+        height:20vh;
+    }
+
+    #logoBox{
+        float:right;
+    }
+
+    #menuBox{
+        float:left;
+        width:28%;
+        height:20vh;
+    }
+
+    #headSection{
+        height:20vh;
+    }
+
+    #logo {
+        height:86%;
+        float:left;
+        margin-left:2%;
+        margin-top:1%;
+    }
+    button[type=submit]{
+        padding: 7px 7px 7px 7px; 
+    }
+    input[type=text]{
+        width:30%;
+    }
+
+    #searchDiv{
+        text-align:center;
+    }
+    #pin {
+        display:none;
+    }
+    #pinLeft {
+        float:left;
+    }
+
+}

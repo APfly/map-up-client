@@ -8,6 +8,7 @@ var pinIsDown = true;
 
 function turnDialUP (){
     $('#pin').addClass('rotate');
+    $('#pinLeft').addClass('rotateL');
     $('#searchBar').slideUp(150);
     $('#nav').slideDown(150);
     pinIsDown = false;
@@ -15,6 +16,7 @@ function turnDialUP (){
 
 function turnDialDOWN (){
     $('#pin').removeClass('rotate');
+    $('#pinLeft').removeClass('rotateL');
     $('#searchBar').slideDown(150);
     $('#nav').slideUp(150);
     pinIsDown = true;

@@ -16,6 +16,7 @@ var app = app || {};
   const meetupView = {};
 
   meetupView.initIndexPage = function (ctx, next) {
+    console.log(ctx);
     resetView();
     $('#map').show();
     $('.container').fadeIn(150);

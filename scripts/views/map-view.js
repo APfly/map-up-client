@@ -4,7 +4,6 @@ var app = app || {};
 
 (function (module) {
   const mapView = {};
-
   let locationForm = document.getElementById('location-form');
   locationForm.addEventListener('submit', geoCode);
 

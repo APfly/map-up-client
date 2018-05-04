@@ -66,7 +66,6 @@ var app = app || {};
     });
 
     for (let i = 0; i < app.Meetups.all.length; i++) {
-
       var blueIcon = new google.maps.MarkerImage(
         "http://www.clker.com/cliparts/o/t/F/J/B/k/google-maps-th.png",
         null, /* size is determined at runtime */
@@ -111,20 +110,57 @@ var app = app || {};
         return newTime;
       }
 
+      function regTime() {
+        let stringTime = info.time.toString();
+        let array = stringTime.split(':');
+        // let minute = array[1];
+        let hour = parseInt(array[0]);
+        let hourString = array[0];
+        
+        if (hour > 12) {
+          let newHour = hour - 12;
+          array.shift([0]);
+          array.unshift(newHour);
+          'PM'
+          array[1] += 'PM'
+        }
+        if (hour < 12) {
+          let num = hourString.charAt(1);
+          array.shift([0]);
+          array.unshift(num);
+          array[1] += 'AM';
+        }
+    
+        let newTime = array.join(':');
+        return newTime;
+      }
+
+      function zipCode () {
+        if(info.zip === undefined) {
+          info.zip = '';
+        } else {
+          info.zip;
+        }
+        return info.zip;
+      }
+      
       (function (marker, info) {
         google.maps.event.addListener(marker, 'click', function (e) {
           infoWindow.setContent(
-            `<div>${info.name}
-              <ul>
-                <li> ${info.date} </li>
-                <li> ${regTime()} </li>
-                <li> ${info.venueName} </li>
-                <li> ${info.address1} ${info.city}, ${info.zip} </li>
+            `<div id="infobox">
+              <p><a href=${info.link}>${info.name}
+              <a></p>
+              <ul class="infolist">
+                  <li class="list-item"> <strong>Date:</strong> ${info.date} </li>
+                  <li class="list-item"> <strong>Time:</strong> ${regTime()} </li>
+                  <li class="list-item"> <strong>Venue name:</strong> ${info.venueName} </li>
+                  <li class="list-item"> <strong>Address:</strong> ${info.address1} ${info.city} ${zipCode()} </li>
+                </ul>
             </div>`)
           infoWindow.open(map, marker);
         });
       })(marker, info);
-
+      
     }
 
   }

@@ -1,13 +1,35 @@
+/* new map-view.js */
 
 'use strict';
 var app = app || {};
 
 (function (module) {
   const mapView = {};
-
   let locationForm = document.getElementById('location-form');
   locationForm.addEventListener('submit', geoCode);
-
+  mapView.initGeoCode = () => {
+    let location = 'seattle';
+    axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+      params: {
+        address: location,
+        key: 'AIzaSyAVGGzvV04jCERkeyLvyAfLhyw_blWCzZU'
+      }
+    })
+      .then(function (response) {
+        let lat = response.data.results[0].geometry.location.lat;
+        let lng = response.data.results[0].geometry.location.lng;
+        let searchPoint = { lat: lat, lng: lng };
+        let geometryOutput = `
+          <ul>
+          <li><strong>Latitude</strong>: ${lat}</li>
+          <li><strong>Longitude</strong>: ${lng}</li>    
+          </ul>
+        `;
+        document.getElementById('geometry').innerHTML = geometryOutput;
+        app.Meetups.newSearch(searchPoint);
+        disHomepage();
+      })
+  }
   function geoCode(e) {
     let location = document.getElementById('location-input').value;
     e.preventDefault();
@@ -28,12 +50,10 @@ var app = app || {};
           </ul>
         `;
         document.getElementById('geometry').innerHTML = geometryOutput;
-        console.log("newSearch()");
         app.Meetups.newSearch(searchPoint);
       })
   }
   mapView.initMap = (lat, lng) => {
-    console.log("initMap()");
     let markers = [];
     let infoWindow = new google.maps.InfoWindow();
 
@@ -46,7 +66,6 @@ var app = app || {};
     });
 
     for (let i = 0; i < app.Meetups.all.length; i++) {
-
       var blueIcon = new google.maps.MarkerImage(
         "http://www.clker.com/cliparts/o/t/F/J/B/k/google-maps-th.png",
         null, /* size is determined at runtime */
@@ -91,25 +110,60 @@ var app = app || {};
         return newTime;
       }
 
+      function regTime() {
+        let stringTime = info.time.toString();
+        let array = stringTime.split(':');
+        // let minute = array[1];
+        let hour = parseInt(array[0]);
+        let hourString = array[0];
+        
+        if (hour > 12) {
+          let newHour = hour - 12;
+          array.shift([0]);
+          array.unshift(newHour);
+          'PM'
+          array[1] += 'PM'
+        }
+        if (hour < 12) {
+          let num = hourString.charAt(1);
+          array.shift([0]);
+          array.unshift(num);
+          array[1] += 'AM';
+        }
+    
+        let newTime = array.join(':');
+        return newTime;
+      }
+
+      function zipCode () {
+        if(info.zip === undefined) {
+          info.zip = '';
+        } else {
+          info.zip;
+        }
+        return info.zip;
+      }
+      
       (function (marker, info) {
         google.maps.event.addListener(marker, 'click', function (e) {
           infoWindow.setContent(
-            `<div>${info.name}
-              <ul>
-                <li> ${info.date} </li>
-                <li> ${regTime()} </li>
-                <li> ${info.venueName} </li>
-                <li> ${info.address1} ${info.city}, ${info.zip} </li>
+            `<div id="infobox">
+              <p><a href=${info.link}>${info.name}
+              <a></p>
+              <ul class="infolist">
+                  <li class="list-item"> <strong>Date:</strong> ${info.date} </li>
+                  <li class="list-item"> <strong>Time:</strong> ${regTime()} </li>
+                  <li class="list-item"> <strong>Venue name:</strong> ${info.venueName} </li>
+                  <li class="list-item"> <strong>Address:</strong> ${info.address1} ${info.city} ${zipCode()} </li>
+                </ul>
             </div>`)
           infoWindow.open(map, marker);
         });
       })(marker, info);
-
+      
     }
 
   }
   module.mapView = mapView;
 
 })(app);
-
-

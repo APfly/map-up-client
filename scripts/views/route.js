@@ -1,46 +1,69 @@
-page('/', disHomepage);
+page('/', ctx => app.mapView.initGeoCode());
 page('/about', disAbout);
 
-function disHomepage () {
-    console.log('home')
-    $('#mainPage').fadeIn(250);
-    $('#aboutPage').hide(250);
+page('/mymeetups', ctx => app.meetupView.initMyMeetupsPage())//disMyMeetups()
+//disMyMeetups() called here^
+
+var pinIsDown = true;
+
+function turnDialUP() {
+  $('#pin').addClass('rotate');
+  $('#pinLeft').addClass('rotateL');
+  $('#searchBar').slideUp(150);
+  $('#nav').slideDown(150);
+  pinIsDown = false;
+}
+
+function turnDialDOWN() {
+  $('#pin').removeClass('rotate');
+  $('#pinLeft').removeClass('rotateL');
+  $('#searchBar').slideDown(150);
+  $('#nav').slideUp(150);
+  $('#myMeetUps').hide();
+  $('#aboutPage').hide();
+
+  pinIsDown = true;
+}
+
+$('#location-form').on('submit', () => {
+  $('#map').slideDown();
+  $('#emeryIsBadAtNamingVariables').show();
+  $('.homeNav').hide();
+})
+
+function pageReset() {
+  pinDown = true;
+  $('#aboutPage').hide();
+  $('#myMeetUps').hide();
+  $('#map').slideDown(250);
+  $('#emeryIsBadAtNamingVariables').slideDown(250);
+}
+
+function disHomepage() {
+  pageReset();
+  $('.homeNav').hide();
+  turnDialDOWN();
 }
 
 function disAbout() {
-    console.log('about')
-    $('#mainPage').fadeOut(250);
-    $('#aboutPage').fadeIn(250);
+  $('#searchBar').hide();
+  $('#nav').show();
+  $('#myMeetUps').hide();
+  $('#map').hide();
+  $('#aboutPage').slideDown(250);
+  $('#emeryIsBadAtNamingVariables').hide();
+  $('.homeNav').show();
+
 }
 
+function disMyMeetups() {
+  $('#searchBar').hide();
+  $('#nav').show();
+  $('#myMeetUps').slideDown(250);
+  $('#map').hide();
+  $('#aboutPage').hide();
+  $('#emeryIsBadAtNamingVariables').hide();
+  $('.homeNav').show();
+}
 
-
-
-
-// $('.lr3').on('click', () => {
-//     $('#ABOUT').fadeOut(200);
-//     $('#BLOG').fadeOut(200);
-//     $('#EVENTS').delay(200).slideDown(300);
-//     $('.foot').fadeIn(20);
-
-//     $('.logo1').fadeIn(200);
-//     $('.logo1').delay(200).fadeOut(200);
-//   })
-
-//   $('#aboutLink').on('mouseenter', () => {
-//     $('#aboutLink').addClass('.localhover');
-//   })
-
-//   $('#blogLink').on('mouseenter', () => {
-//     $('#blogLink').addClass('.localhover');
-//   })
-
-//   $('#eventsLink').on('mouseenter', () => {
-//     $('#eventsLink').addClass('.localhover');
-//   })
-
-// })
-
-
-page('/mymeetups', ctx => app.meetupView.initMyMeetupsPage())
 page();

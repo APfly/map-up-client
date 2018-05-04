@@ -6,8 +6,6 @@ var app = app || {};
     $('.nav-menu').slideToggle(350);
   })
 
-  $('#table ul li + .save-meetup').css('border', '1px solid #fff');
-
   const meetupView = {};
 
   meetupView.initIndexPage = function (ctx, next) {

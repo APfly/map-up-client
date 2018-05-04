@@ -2,6 +2,9 @@
 
 $(document).ready(() => {
 
+    $('#pin').css( 'cursor', 'pointer' );
+    $('#pinLeft').css( 'cursor', 'pointer' );
+
     $('#pin').on('click', () => {
 
         if(pinIsDown){

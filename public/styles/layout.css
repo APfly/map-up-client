@@ -158,6 +158,19 @@ button[type=submit]{
     border-top-style: solid;    
 }
 
+#table-list li {
+  display: block;
+  margin: 0px auto;
+  font-size: .6em;
+  padding-left:1em;
+}
+
+.save-meetup {
+  margin-bottom:1.5em;
+}
+#table-list, #myMeetUps {
+  background-color:#5fafff;
+}
 /* mobile */
 @media screen and ( max-width: 700px ){
     body{

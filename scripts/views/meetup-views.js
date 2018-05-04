@@ -10,7 +10,7 @@ var app = app || {};
   const meetupView = {};
 
   meetupView.initIndexPage = function (ctx, next) {
-
+    $('#location-input').val('');
     $('#table ul').empty();
     $('#my-meetups ul').empty();
     app.Meetups.all.forEach(item => $('#table ul').append(item.toHtml(), `<button class="save-meetup">save to my meetups</button>`));

@@ -52,7 +52,6 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
   Meetups.saved = [];
 
   Meetups.loadAll = rows => {
-    console.log("loadAll()");
     Meetups.all = JSON.parse(rows.text).events.sort((a, b) => b.title - a.title).map(meetup => new Meetups(meetup)).filter(meetup => meetup.lat);
     return Meetups.all;
   }
@@ -60,7 +59,6 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
 
   function localStorageCheck() {
     var savedMeetupsAsString = localStorage.getItem('saved-meetups');
-    console.log(savedMeetupsAsString);
     let usableSavedMeetups = JSON.parse(savedMeetupsAsString);
     if (usableSavedMeetups && usableSavedMeetups.length) {
       Meetups.saved = usableSavedMeetups.map(meetup => new Meetups(meetup));
@@ -71,14 +69,6 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
   }
   localStorageCheck();
 
-  Meetups.initSearch = (ctx) =>
-    $.get(`${ENV.apiUrl}/meetup/init_search/${ctx.lat} ${ctx.lng}`)
-      .then(Meetups.loadAll)
-      .then(() => app.mapView.initMap(ctx.lat, ctx.lng))
-      // .then(next)
-      .then(app.meetupView.initIndexPage)
-      .catch(errorCallback);
-
   Meetups.newSearch = (ctx) =>
     $.get(`${ENV.apiUrl}/meetup/new_search/${ctx.lat} ${ctx.lng}`)
       .then(Meetups.loadAll)
@@ -88,7 +78,6 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
 
   function errorCallback(err) {
     console.error(err);
-    // module.errorView.initErrorPage(err);
   }
 
   module.Meetups = Meetups;

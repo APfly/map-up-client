@@ -1,0 +1,28 @@
+#infobox {
+  margin: 0;
+  padding: 0;
+  height: auto;
+  width: 23em;
+}
+
+#infobox p {
+  margin-bottom: -.5em;
+}
+
+#infobox a {
+  color: #007fff;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#infobox ul {
+  list-style-type: none;
+  margin-left: -1.8em;
+}
+
+#infobox li {
+  color: black;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 1.6;
+}

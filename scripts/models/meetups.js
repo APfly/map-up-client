@@ -1,3 +1,4 @@
+/* new meetups.js */
 'use strict';
 
 var app = app || {};
@@ -10,19 +11,35 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
 
 (function (module) {
   function Meetups(rawMeetupsObj) {
-    this.name = rawMeetupsObj.name;
-    this.date = rawMeetupsObj.local_date;
-    this.time = rawMeetupsObj.local_time;
-    this.link = rawMeetupsObj.link;
-    if (rawMeetupsObj.venue) {
-      this.lon = rawMeetupsObj.venue.lon;
-      this.lat = rawMeetupsObj.venue.lat;
-      this.venueName = rawMeetupsObj.venue.name;
-      this.address1 = rawMeetupsObj.venue.address_1;
-      this.address2 = rawMeetupsObj.venue.address_2;
-      this.city = rawMeetupsObj.venue.city;
-      this.state = rawMeetupsObj.venue.state;
-      this.zip = rawMeetupsObj.venue.zip;
+    if (rawMeetupsObj.venueName) {
+      this.name = rawMeetupsObj.name;
+      this.date = rawMeetupsObj.date;
+      this.time = rawMeetupsObj.time;
+      this.link = rawMeetupsObj.link;
+      this.lon = rawMeetupsObj.lon;
+      this.lat = rawMeetupsObj.lat;
+      this.venueName = rawMeetupsObj.venueName;
+      this.address1 = rawMeetupsObj.address1;
+      this.address2 = rawMeetupsObj.address2;
+      this.city = rawMeetupsObj.city;
+      this.state = rawMeetupsObj.state;
+      this.zip = rawMeetupsObj.zip;
+    }
+    else {
+      this.name = rawMeetupsObj.name;
+      this.date = rawMeetupsObj.local_date;
+      this.time = rawMeetupsObj.local_time;
+      this.link = rawMeetupsObj.link;
+      if (rawMeetupsObj.venue) {
+        this.lon = rawMeetupsObj.venue.lon;
+        this.lat = rawMeetupsObj.venue.lat;
+        this.venueName = rawMeetupsObj.venue.name;
+        this.address1 = rawMeetupsObj.venue.address_1;
+        this.address2 = rawMeetupsObj.venue.address_2;
+        this.city = rawMeetupsObj.venue.city;
+        this.state = rawMeetupsObj.venue.state;
+        this.zip = rawMeetupsObj.venue.zip;
+      }
     }
   }
 
@@ -40,11 +57,26 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
     return Meetups.all;
   }
 
-  Meetups.initSearch = (ctx, next) =>
-    $.get(`${ENV.apiUrl}/meetup/init_search`)
-      // .then(console.log('test'))
+
+  function localStorageCheck() {
+    var savedMeetupsAsString = localStorage.getItem('saved-meetups');
+    console.log(savedMeetupsAsString);
+    let usableSavedMeetups = JSON.parse(savedMeetupsAsString);
+    if (usableSavedMeetups && usableSavedMeetups.length) {
+      Meetups.saved = usableSavedMeetups.map(meetup => new Meetups(meetup));
+      console.log('loaded from local storage');
+    } else {
+      console.log('starting from scratch');
+    }
+  }
+  localStorageCheck();
+
+  Meetups.initSearch = (ctx) =>
+    $.get(`${ENV.apiUrl}/meetup/init_search/${ctx.lat} ${ctx.lng}`)
       .then(Meetups.loadAll)
-      .then(next)
+      .then(() => app.mapView.initMap(ctx.lat, ctx.lng))
+      // .then(next)
+      .then(app.meetupView.initIndexPage)
       .catch(errorCallback);
 
   Meetups.newSearch = (ctx) =>
@@ -62,7 +94,3 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
   module.Meetups = Meetups;
 
 })(app);
-
-
-
-

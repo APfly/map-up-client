@@ -15,128 +15,99 @@
   <link rel="stylesheet" href="public/styles/modules.css">
 
   <script type="text/x-handlebars-template" id="meetups-list-template">
-        <li class="meetups-items">
-          <div class="meetups-container">
-            <div class="meetups-overlay">
-              <h2>{{name}}</h2>
-              <h2>{{date}}</h2>
-              <a href="{{link}}">{{name}}</a>
-              <p>{{time}}</p>        
-            </div>
-          </div>
-        </li>
-      </script>
+    <li class="meetups-items">
+      <div class="meetups-container">
+        <div class="meetups-overlay">
+          <h2>{{name}}</h2>
+          <h2>{{date}}</h2>
+          <a href="{{link}}">{{name}}</a>
+          <p>{{time}}</p>        
+        </div>
+      </div>
+    </li>
+  </script>
 
 </head>
 
-
-
 <body>
-  <nav>
+
+  <section id="headSection">
+
+    <div id="menuBox">
+      <img id="pin" src="img/turnpin4.gif" alt="menu button">
+      <img id="pinLeft" src="img/turnpin4.gif" alt="menu button">
+    </div>
+
+
+
+    <div id="logoHead">
+      <a href="/">
+        <img id="logo" src="img/Logo5.gif" alt="Map Up!">
+      </a>
+
+    </div>
+
+  </section>
+
+  <section id="nav">
+
     <ul>
       <li>
-        <a href="/">Home</a>
+        <a href="/about">ABOUT</a>
       </li>
+      <li class="navSpacer">&nbsp|&nbsp</li>
       <li>
-        <a href="/mymeetups">My meetups</a>
+        <a href="/mymeetups">SAVED MEETUPS</a>
+      </li>
+      <li class="homeNav navSpacer">&nbsp|&nbsp</li>
+      <li class="homeNav">
+        <a href="/">SEARCH</a>
       </li>
     </ul>
-  </nav>
 
-  <h1>APfly!</h1>
+  </section>
 
-  <!-- //////////////////////////////////////// -->
-  <div class="searchbar-items">
-    <section id="mainPage">
-      <!-- //////////////////////////////////////// -->
+  <section id="searchBar">
 
-      <section id="headSection">
+    <div id="searchDiv">
 
+      <form style='display:inline;' id="location-form">
+        <input type="text" id="location-input" placeholder="around where..?">
+        <button type="submit">GO!</button>
+      </form>
 
-        <div id="menuBox">
-          <img id="pin" src="img/turnpin.gif" alt="menu button">
-        </div>
+    </div>
 
-        <div id="logoHead">
-          <img id="logo" src="img/headLogo.gif" alt="Map Up!">
-        </div>
-
-      </section>
-      <!-- END HEAD SECITON -->
-
-      <section id="searchBar">
-
-        <div id="searchDiv">
-
-          <p style='display:inline;'>AROUND WHERE?</p>
-
-          <form style='display:inline;' id="location-form">
-            <input type="text" id="location-input" placeholder="location">
-            <button type="submit">Submit</button>
-          </form>
-        </div>
-
-      </section>
-      <!-- END SEARCH BAR -->
-  </div>
-
-
-
-
-
-
-
-
+  </section>
 
   <div id="map"></div>
 
-
-
-  <div class="container">
-    <div id="formatted-address"></div>
-    <div id="address-components"></div>
-    <div id="geometry"></div>
-  </div>
-  <section id="table" class="container">
-    <ul id="table-list"></ul>
-  </section>
-
-
-
-  <section id="footer">
-    <p>
-      <a href="/about">ABOUT</a>
-    </p>
-  </section>
-
-  </section>
-  <!-- end mainPage -->
-  <!-- //////////////////////////////////////// -->
-
-
-
-  <!-- //////////////////////////////////////// -->
   <section id="aboutPage">
-
-    <!-- <p>about</p> -->
-    <p>
-      <a href="/">home</a>
-    </p>
-
-
-
+    <P>ABOUT</P>
   </section>
-  <!-- //////////////////////////////////////// -->
 
-
-
-  <section id="my-meetups">
+  <section id="myMeetUps">
     <ul></ul>
+    <p>MY MEETUPS</p>
   </section>
+
+  <section id="emeryIsBadAtNamingVariables">
+
+    <div class="container">
+      <div id="formatted-address"></div>
+      <div id="address-components"></div>
+      <div id="geometry"></div>
+    </div>
+
+    <section id="table" class="container">
+      <ul id="table-list"></ul>
+    </section>
+
+  </section>
+
 
 
   <!-- External CDN Resources -->
-
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMIynQZAAdXhDKd2DzWJ89h-sqVrQktxo&"></script>

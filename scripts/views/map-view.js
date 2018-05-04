@@ -1,13 +1,35 @@
+/* new map-view.js */
 
 'use strict';
 var app = app || {};
 
 (function (module) {
   const mapView = {};
-
   let locationForm = document.getElementById('location-form');
   locationForm.addEventListener('submit', geoCode);
-
+  mapView.initGeoCode = () => {
+    let location = 'seattle';
+    axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+      params: {
+        address: location,
+        key: 'AIzaSyAVGGzvV04jCERkeyLvyAfLhyw_blWCzZU'
+      }
+    })
+      .then(function (response) {
+        let lat = response.data.results[0].geometry.location.lat;
+        let lng = response.data.results[0].geometry.location.lng;
+        let searchPoint = { lat: lat, lng: lng };
+        let geometryOutput = `
+          <ul>
+          <li><strong>Latitude</strong>: ${lat}</li>
+          <li><strong>Longitude</strong>: ${lng}</li>    
+          </ul>
+        `;
+        document.getElementById('geometry').innerHTML = geometryOutput;
+        app.Meetups.newSearch(searchPoint);
+        disHomepage();
+      })
+  }
   function geoCode(e) {
     let location = document.getElementById('location-input').value;
     e.preventDefault();
@@ -28,12 +50,10 @@ var app = app || {};
           </ul>
         `;
         document.getElementById('geometry').innerHTML = geometryOutput;
-        console.log("newSearch()");
         app.Meetups.newSearch(searchPoint);
       })
   }
   mapView.initMap = (lat, lng) => {
-    console.log("initMap()");
     let markers = [];
     let infoWindow = new google.maps.InfoWindow();
 
@@ -147,5 +167,3 @@ var app = app || {};
   module.mapView = mapView;
 
 })(app);
-
-

@@ -19,6 +19,9 @@ function turnDialDOWN (){
     $('#pinLeft').removeClass('rotateL');
     $('#searchBar').slideDown(150);
     $('#nav').slideUp(150);
+    $('#myMeetUps').hide();
+    $('#aboutPage').hide();
+
     pinIsDown = true;
 }
 

@@ -88,7 +88,7 @@ html {
     background-color:#007fff;
     height:50px;
     border-top: white;
-    border-top-width: 2px;
+    border-top-width: 1px;
     border-top-style: solid;
     padding: 5px 10px 5px 10px; 
 }
@@ -144,7 +144,7 @@ button[type=submit]{
 
 #map{
     border-top: white;
-    border-top-width: 2px;
+    border-top-width: 1px;
     border-top-style: solid;
 }
 
@@ -154,7 +154,7 @@ button[type=submit]{
     padding-bottom:25px;
     padding-right:30px;
     border-top-color: white;
-    border-top-width: 2px;
+    border-top-width: 1px;
     border-top-style: solid;    
 }
 

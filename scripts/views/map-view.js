@@ -8,6 +8,7 @@ var app = app || {};
   let locationForm = document.getElementById('location-form');
   locationForm.addEventListener('submit', geoCode);
   mapView.initGeoCode = () => {
+    pageReset();
     let location = 'seattle';
     axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
       params: {

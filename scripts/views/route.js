@@ -1,4 +1,5 @@
 page('/', ctx => app.mapView.initGeoCode());
+page('/map-up-client', ctx => app.mapView.initGeoCode());
 page('/about', disAbout);
 
 page('/mymeetups', ctx => app.meetupView.initMyMeetupsPage())//disMyMeetups()

@@ -53,44 +53,59 @@ html {
 /* /////// */
 
 #searchBar {
-    height:90px;
+    /* height:90px; */
     /* background-color:red; */
     border-top: #007fff;
     border-top-width: 1px;
     border-top-style: solid;
+    display:none;
 }
 
 #searchDiv{
     background-color:#007fff;
-    height:90px;
+    /* height:90px; */
     border-top: white;
     border-top-width: 1px;
     border-top-style: solid;
+    text-align:center;
 }
 
-#searchDiv > p {
+#searchDiv > span {
+
     font-size:.7em;
     line-height:.1em;
-    color:white;
-    
+    color:white;    
 }
 
+
+
 input[type=text]{
-    padding-left: 5%;
-    font-size: 1em;
-    margin-top: 0px;
-    width:95%; height:40px;
+    font-size: 1.4em;
+    width:80%; height:40px;
     border: 1px solid #7F7979;
     -webkit-border-radius: 5px;
     border-radius: 2px;
+    text-align:center;
 
+}
+
+button[type=submit]{
+  -webkit-border-radius: 60;
+  -moz-border-radius: 60;
+  border-radius: 50px;
+  color: #7F7979;
+  /* background: #ffffff; */
+  /* padding: 5px 10px 5px 10px; */
+  /* text-decoration: none; */
 }
 
 
 
 /* ////////////TABLE */
 
-
+#footer{
+    background-color:#007fff;
+}
 
 
 

@@ -1,5 +1,5 @@
 page('/'
-  , disHomepage);
+  , ctx => app.Meetups.initSearch(ctx), () => app.meetupView.initIndexPage(), disHomepage);
 page('/about', disAbout);
 
 function disHomepage() {

@@ -9,17 +9,17 @@ var app = app || {};
   function resetView() {
     $('.container').hide();
     $('.nav-menu').slideUp(350);
+    $('#table ul').empty();
+    $('#my-meetups ul').empty();
   }
 
   const meetupView = {};
 
   meetupView.initIndexPage = function (ctx, next) {
-
     resetView();
+    $('#map').show();
     $('.container').fadeIn(150);
-    $('#table ul').empty();
-    $('#my-meetups ul').empty();
-
+    $('.searchbar-items').show();
     app.Meetups.all.forEach(item => $('#table ul').append(item.toHtml(), `<button class="save-meetup">save to my meetups</button>`));
 
     let saveMeetup = document.getElementsByClassName('save-meetup');
@@ -30,9 +30,13 @@ var app = app || {};
   }
 
   meetupView.initMyMeetupsPage = function (ctx, next) {
-    $('.container').hide();
+    resetView();
     $('#map').hide();
-    $('#my-meetups ul').empty();
+    // $('.container').hide();
+    // $('#map').hide();
+    $('.searchbar-items').hide();
+    $('.container').fadeIn(150);
+
     // $('#my-meetups ul').show();
     app.Meetups.saved.forEach(item => $('#my-meetups ul').append(item.toHtml()));
   }

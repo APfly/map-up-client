@@ -40,6 +40,13 @@ ENV.apiUrl = ENV.isProduction ? ENV.productionApiUrl : ENV.developmentApiUrl;
     return Meetups.all;
   }
 
+  Meetups.initSearch = callback =>
+    $.get(`${ENV.apiUrl}/meetup/init_search`)
+      // .then(console.log('test'))
+      .then(Meetups.loadAll)
+      .then(callback)
+      .catch(errorCallback);
+
   Meetups.newSearch = (ctx) =>
     $.get(`${ENV.apiUrl}/meetup/new_search/${ctx.lat} ${ctx.lng}`)
       .then(Meetups.loadAll)

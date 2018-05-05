@@ -115,3 +115,10 @@ background-image: url("jenSmile.JPG");
 #noah img:hover {
 background-image: url("noahSmile.JPG");
 }
+
+@media only screen and (max-width:520px){
+  #emery, #earl, #jason, #jen, #noah {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

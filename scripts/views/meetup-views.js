@@ -17,7 +17,7 @@ var app = app || {};
       if (app.Meetups.saved.some(meetup => meetup.link === item.link)) {
         console.log('found a match:', item.name);
         console.log(i);
-        return $('#table ul').append(item.toHtml()) + $(`.meetups-overlay:eq(${i})`).append(`<p class="added-note">added to my meetups &#10003</p>`) + $(`#table ul li:eq(${i}) button`).hide();
+        return $('#table ul').append(item.toHtml()) + $(`#table ul li:eq(${i})`).append(`<p class="added-note">added to my meetups &#10003</p>`) + $(`#table ul li:eq(${i}) button`).hide();
       }
       else {
         return $('#table ul').append(item.toHtml());

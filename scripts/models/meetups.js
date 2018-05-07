@@ -1,4 +1,3 @@
-/* new meetups.js */
 'use strict';
 
 var app = app || {};

@@ -8,11 +8,21 @@ var app = app || {};
 
   const meetupView = {};
 
-  meetupView.initIndexPage = function (ctx, next) {
-    $('#location-input').val('');
+  meetupView.initIndexPage = function (ctx) {
+    // $('#location-input').val('');
     $('#table ul').empty();
-    $('#my-meetups ul').empty();
-    app.Meetups.all.forEach(item => $('#table ul').append(item.toHtml()));
+    disHomepage();
+
+    app.Meetups.all.forEach(function (item, i) {
+      if (app.Meetups.saved.some(meetup => meetup.link === item.link)) {
+        console.log('found a match:', item.name);
+        console.log(i);
+        return $('#table ul').append(item.toHtml()) + $(`#table ul li:eq(${i})`).append(`<p class="added-note">added to my meetups &#10003</p>`) + $(`#table ul li:eq(${i}) button`).hide();
+      }
+      else {
+        return $('#table ul').append(item.toHtml());
+      }
+    });
 
     $('.save-meetup').click(function saveToMyMeetups(event) {
       event.preventDefault();

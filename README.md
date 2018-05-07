@@ -42,3 +42,5 @@ https://developers.google.com/maps/documentation/javascript/adding-a-google-map
 https://www.meetup.com/meetup_api/
 
 https://www.youtube.com/watch?v=Zxf1mnP5zcw
+
+Research on jQuery functions such as .grep() and .eq(): http://api.jquery.com/

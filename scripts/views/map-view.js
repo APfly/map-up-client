@@ -1,5 +1,3 @@
-/* new map-view.js */
-
 'use strict';
 var app = app || {};
 

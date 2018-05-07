@@ -2,3 +2,12 @@
   height: 400px;
   width: 100%;
  }
+
+ .save-meetup, .delete-meetup, .added-note {
+  font-size:1.5em;
+  margin-bottom:1.5em;
+ }
+
+ .added-note {
+   color:darkgreen;
+ }

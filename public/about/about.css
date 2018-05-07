@@ -36,8 +36,7 @@
   text-align: center;
 }
 
-#emery img {
-  background-image: url("emeryNormal.JPG");
+#emery img, #earl img, #jason img, #jen img, #noah img {
   background-position-y: 30%;
   background-size: 100%;
   background-repeat: no-repeat;
@@ -46,6 +45,10 @@
   height: 350px;
   min-width: 350px;
   border-radius: 100%;
+}
+
+#emery img {
+  background-image: url("emeryNormal.JPG");
 }
 
 #emery img:hover {
@@ -54,14 +57,6 @@
 
 #earl img {
   background-image: url("earlJayNormal.JPG");
-  background-position-y: 30%;
-  background-size: 100%;
-  background-repeat: no-repeat;
-  cursor: pointer;
-  display: block;
-  height: 350px;
-  min-width: 350px;
-  border-radius: 100%;
 }
 
 #earl img:hover {
@@ -70,14 +65,6 @@ background-image: url("earlJaySmile.JPG");
 
 #jason img {
   background-image: url("jasonNormal.JPG");
-  background-position-y: 30%;
-  background-size: 100%;
-  background-repeat: no-repeat;
-  cursor: pointer;
-  display: block;
-  height: 350px;
-  min-width: 350px;
-  border-radius: 100%;
 }
 
 #jason img:hover {
@@ -86,14 +73,6 @@ background-image: url("jasonSmile.JPG");
 
 #jen img {
   background-image: url("jenNormal.JPG");
-  background-position-y: 30%;
-  background-size: 100%;
-  background-repeat: no-repeat;
-  cursor: pointer;
-  display: block;
-  height: 350px;
-  min-width: 350px;
-  border-radius: 100%;
 }
 
 #jen img:hover {
@@ -102,14 +81,6 @@ background-image: url("jenSmile.JPG");
 
 #noah img {
   background-image: url("noahNormal.JPG");
-  background-position-y: 30%;
-  background-size: 100%;
-  background-repeat: no-repeat;
-  cursor: pointer;
-  display: block;
-  height: 350px;
-  min-width: 350px;
-  border-radius: 100%;
 }
 
 #noah img:hover {
@@ -122,6 +93,19 @@ background-image: url("noahSmile.JPG");
     margin-right: auto;
   }
   #emery img, #earl img, #jason img, #jen img, #noah img {
-    min-width:80vw;
+    min-width:75vw;
+  }
+}
+
+@media screen and (max-width:450px){
+  #emery img, #earl img, #jason img, #jen img, #noah img {
+    min-width:70vw;
+    height:325px;
+  }
+}
+
+@media screen and (max-width:400px){
+  #emery img, #earl img, #jason img, #jen img, #noah img {
+    height:300px;
   }
 }

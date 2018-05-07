@@ -9,7 +9,7 @@
 
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 
-  <link rel="stylesheet" href="public/styles/reset.css">
+  <link rel="stylesheet" href="public/styles/normalize.css">
   <link rel="stylesheet" href="public/styles/base.css">
   <link rel="stylesheet" href="public/styles/layout.css">
   <link rel="stylesheet" href="public/styles/modules.css">
@@ -19,10 +19,10 @@
     <li class="meetups-items">
       <div class="meetups-container">
         <div class="meetups-overlay">
-          <h2>{{name}}</h2>
+          <h2><a href="{{link}}">{{name}}</a></h2>
           <h2>{{date}}</h2>
-          <a href="{{link}}" target="_blank">{{name}}</a>
-          <p>{{time}}</p>        
+          <p>{{time}}</p>
+          <button class="save-meetup">save to my meetups</button>
         </div>
       </div>
     </li>

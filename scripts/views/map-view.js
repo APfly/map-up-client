@@ -26,8 +26,8 @@ var app = app || {};
     }
     function backupSearch() {
       if (lastSearchPoint) {
-        app.Meetups.newSearch(lastSearchPoint);
-        console.log('grabbing last search stuff');
+        console.log('grabbing content from last search');
+        app.meetupView.initIndexPage(lastSearchPoint);
       }
       else {
         console.log('grabbing seattle stuff');

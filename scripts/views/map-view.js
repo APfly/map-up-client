@@ -5,31 +5,35 @@ var app = app || {};
 
 (function (module) {
   const mapView = {};
+  let lastSearchPoint;
   let locationForm = document.getElementById('location-form');
   locationForm.addEventListener('submit', geoCode);
   mapView.initGeoCode = () => {
     pageReset();
-    let location = 'seattle';
-    axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-      params: {
-        address: location,
-        key: 'AIzaSyAVGGzvV04jCERkeyLvyAfLhyw_blWCzZU'
-      }
-    })
-      .then(function (response) {
-        let lat = response.data.results[0].geometry.location.lat;
-        let lng = response.data.results[0].geometry.location.lng;
-        let searchPoint = { lat: lat, lng: lng };
-        let geometryOutput = `
-          <ul>
-          <li><strong>Latitude</strong>: ${lat}</li>
-          <li><strong>Longitude</strong>: ${lng}</li>    
-          </ul>
-        `;
-        document.getElementById('geometry').innerHTML = geometryOutput;
+    let searchPoint = { lat: 47.6062095, lng: -122.3320708 };
+    if (navigator.geolocation && !lastSearchPoint) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        searchPoint = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        console.log(searchPoint);
         app.Meetups.newSearch(searchPoint);
-        disHomepage();
-      })
+      }, () => backupSearch());
+    } else {
+      console.log('in the else');
+      backupSearch();
+    }
+    function backupSearch() {
+      if (lastSearchPoint) {
+        app.Meetups.newSearch(lastSearchPoint);
+        console.log('grabbing last search stuff');
+      }
+      else {
+        console.log('grabbing seattle stuff');
+        app.Meetups.newSearch(searchPoint);
+      }
+    }
   }
   function geoCode(e) {
     let location = document.getElementById('location-input').value;
@@ -44,6 +48,7 @@ var app = app || {};
         let lat = response.data.results[0].geometry.location.lat;
         let lng = response.data.results[0].geometry.location.lng;
         let searchPoint = { lat: lat, lng: lng };
+        lastSearchPoint = searchPoint;
         let geometryOutput = `
           <ul>
           <li><strong>Latitude</strong>: ${lat}</li>

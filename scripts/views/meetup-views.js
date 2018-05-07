@@ -11,9 +11,26 @@ var app = app || {};
   meetupView.initIndexPage = function (ctx, next) {
     $('#location-input').val('');
     $('#table ul').empty();
+    $('#table ul li').empty();
     $('#my-meetups ul').empty();
-    app.Meetups.all.forEach(item => $('#table ul').append(item.toHtml()));
-
+    app.Meetups.all.forEach(function (item, i) {
+      if (app.Meetups.saved.some(meetup => meetup.link === item.link)) {
+        console.log('found a match:', item.name);
+        console.log(i);
+        return $('#table ul').append(item.toHtml()) + $(`.meetups-overlay:eq(${i})`).append(`<p class="added-note">added to my meetups &#10003</p>`) + $(`#table ul li:eq(${i}) button`).hide();
+      }
+      else {
+        return $('#table ul').append(item.toHtml());
+      }
+    });
+    // for (let i in app.Meetups.all) {
+    //   if (app.Meetups.saved.some(meetup => meetup.link === app.Meetups.all[i].link)) {
+    //     console.log('found a match');
+    //     console.log(i);
+    //     console.log(`table ul li:nth-child(${i})`);
+    //     $(`table ul li:nth-child(${i})`).append(`<p class="added-note">added to my meetups &#10003</p>`);
+    //   }
+    // }
     $('.save-meetup').click(function saveToMyMeetups(event) {
       event.preventDefault();
       if (app.Meetups.saved.some(meetup => meetup.link === app.Meetups.all[$(this).closest('li').index()].link)) {

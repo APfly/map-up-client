@@ -150,8 +150,9 @@ button[type=submit]{
   display: block;
   margin: 0px auto;
   font-size: .8em;
-  padding-left:1em;
+  padding:1em;
   border: solid #CCC 1px;
+  width:90vw;
 }
 
 #table-list, #myMeetUps {

@@ -3,13 +3,13 @@ var app = app || {};
 
 (function (module) {
   const mapView = {};
-  let lastSearchPoint;
+  mapView.lastSearchPoint = '';
   let locationForm = document.getElementById('location-form');
   locationForm.addEventListener('submit', geoCode);
   mapView.initGeoCode = () => {
     pageReset();
     let searchPoint = { lat: 47.6062095, lng: -122.3320708 };
-    if (navigator.geolocation && !lastSearchPoint) {
+    if (navigator.geolocation && !mapView.lastSearchPoint) {
       navigator.geolocation.getCurrentPosition(function (position) {
         searchPoint = {
           lat: position.coords.latitude,
@@ -23,9 +23,9 @@ var app = app || {};
       backupSearch();
     }
     function backupSearch() {
-      if (lastSearchPoint) {
+      if (mapView.lastSearchPoint) {
         console.log('grabbing content from last search');
-        app.meetupView.initIndexPage(lastSearchPoint);
+        app.meetupView.initIndexPage(mapView.lastSearchPoint);
       }
       else {
         console.log('grabbing seattle stuff');
@@ -46,7 +46,7 @@ var app = app || {};
         let lat = response.data.results[0].geometry.location.lat;
         let lng = response.data.results[0].geometry.location.lng;
         let searchPoint = { lat: lat, lng: lng };
-        lastSearchPoint = searchPoint;
+        mapView.lastSearchPoint = searchPoint;
         let geometryOutput = `
           <ul>
           <li><strong>Latitude</strong>: ${lat}</li>
@@ -71,7 +71,7 @@ var app = app || {};
 
     for (let i = 0; i < app.Meetups.all.length; i++) {
       var blueIcon = new google.maps.MarkerImage(
-        "http://www.clker.com/cliparts/o/t/F/J/B/k/google-maps-th.png",
+        "https://www.clker.com/cliparts/o/t/F/J/B/k/google-maps-th.png",
         null, /* size is determined at runtime */
         null, /* origin is 0,0 */
         null, /* anchor is bottom center of the scaled image */

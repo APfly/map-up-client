@@ -9,25 +9,30 @@ var app = app || {};
   const meetupView = {};
 
   meetupView.initIndexPage = function (ctx) {
-    // $('#location-input').val('');
-    $('#table ul').empty();
     disHomepage();
 
-    app.Meetups.all.forEach(function (item, i) {
-      if (app.Meetups.saved.some(meetup => meetup.link === item.link)) {
-        console.log('found a match:', item.name);
-        console.log(i);
-        return $('#table ul').append(item.toHtml()) + $(`#table ul li:eq(${i})`).append(`<p class="added-note">added to my meetups &#10003</p>`) + $(`#table ul li:eq(${i}) button`).hide();
-      }
-      else {
-        return $('#table ul').append(item.toHtml());
-      }
-    });
+    if (app.mapView.lastSearchPoint.length && app.mapView.lastSearchPoint === ctx) {
+      console.log('recycling the previous table');
+      $('#table ul').show();
+    }
+    else {
+      $('#table ul').empty();
+      app.Meetups.all.forEach(function (item, i) {
+        if (app.Meetups.saved.some(meetup => meetup.link === item.link)) {
+          console.log('found a match:', item.name);
+          return $('#table ul').append(item.toHtml()) + $(`#table ul li:eq(${i})`).append(`<p class="added-note">added to my meetups &#10003</p>`) + $(`#table ul li:eq(${i}) button`).hide();
+        }
+        else {
+          return $('#table ul').append(item.toHtml());
+        }
+      });
+    }
+
 
     $('.save-meetup').click(function saveToMyMeetups(event) {
       event.preventDefault();
       if (app.Meetups.saved.some(meetup => meetup.link === app.Meetups.all[$(this).closest('li').index()].link)) {
-        console.log('you already have that meetup');
+        console.log('I don\'t know how you managed to click this, but you already have this meetup.');
       }
       else {
         app.Meetups.saved.push(app.Meetups.all[$(this).closest('li').index()]);
@@ -44,7 +49,7 @@ var app = app || {};
     disMyMeetups();
     $('#table ul').empty();
     $('#myMeetUps ul').empty();
-    app.Meetups.saved.forEach(item => $('#myMeetUps ul').append(item.toHtml()));
+    app.Meetups.saved.sort((a, b) => b.date - a.date).forEach(item => $('#myMeetUps ul').append(item.toHtml()));
     $('.save-meetup').addClass('delete-meetup').removeClass('save-meetup');
     $('.delete-meetup').text('delete from my meetups');
 
@@ -56,7 +61,7 @@ var app = app || {};
       app.Meetups.saved = $.grep(app.Meetups.saved, function (value) {
         return value != app.Meetups.saved[deleteIndex];
       });
-      console.log(app.Meetups.saved);
+      console.log('current saved Meetups array:', app.Meetups.saved);
       $(this).closest('li').remove();
     });
   }
